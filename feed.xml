@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Li Lejia&#39;s blog</title>
+    <description>This is some share from Li Lejia(李乐佳), hope it would help a little bit.</description>
+    <link>http://lejia.li/</link>
+    <atom:link href="http://lejia.li/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 09 Jul 2014 04:59:49 +0800</pubDate>
+    <lastBuildDate>Wed, 09 Jul 2014 04:59:49 +0800</lastBuildDate>
+    <generator>Jekyll v2.1.0</generator>
+    
+      <item>
+        <title>用Jekyllrb与Github.io来搭建个人博客</title>
+        <description>&lt;h1 id=&quot;jekylgithubio&quot;&gt;用Jekyl与Github.io来搭建个人博客&lt;/h1&gt;
+
+&lt;p&gt;下班，折腾折腾，九点钟边看着一百七十多分钟的《音乐之声》边开始了博客的迁移，现在真的没有比Jekyl+github.io更方便的了吧，Wordpress从来没有觉得顺畅过，当然，最关键的是github.io不需要和Linux打交道，纯静态页面。&lt;/p&gt;
+
+&lt;p&gt;现在开始：&lt;/p&gt;
+
+&lt;p&gt;没有gem的先安装gem，gem怎么安装的在&lt;a href=&quot;https://rubygems.org/pages/download&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;三条命令你就能看到你本地的Jekyllrb了：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+~ $ gem install jekyll
+~ $ jekyll new myblog
+~ $ cd myblog
+~/myblog $ jekyll serve
+# =&amp;gt; Now browse to http://localhost:4000
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;在你自定义的myblog文件夹里，目录应该差不多类似下面：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+├── _config.yml
+├── _drafts
+|   ├── begin-with-the-crazy-ideas.textile
+|   └── on-simplicity-in-technology.markdown
+├── _includes
+|   ├── footer.html
+|   └── header.html
+├── _layouts
+|   ├── default.html
+|   └── post.html
+├── _posts
+|   ├── 2007-10-29-why-every-programmer-should-play-nethack.textile
+|   └── 2009-04-26-barcamp-boston-4-roundup.textile
+├── _data
+|   └── members.yml
+├── _site
+└── index.html
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;这些文件与文件夹分别代表的是：&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;文件/文件夹&lt;/th&gt;
+      &lt;th&gt;内容&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;_config.yml&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;包含所有的配置数据，许多选项都可以执行命令行来设置，不过在这个文件里设置能让你少记一些东西&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;_drafts&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;文件夹里包含还没有发布的博文，这些文件的名字一般都没有包含日期：&lt;code&gt;title.MARKUP&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;_includes&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;包含页面共用的头首侧边栏什么的&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;_layouts&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;博文页面的模板&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;_posts&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;这些就是你的博文啦&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;_data&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;对于Ruby来说，一些固定格式的网站数据可以放到这，jekyll引擎将会自动加载这个文件夹里的&lt;code&gt;.yml&lt;/code&gt;和&lt;code&gt;.yaml&lt;/code&gt;文件，如果文件名是&lt;code&gt;members.yml&lt;/code&gt;，那么你可以通过&lt;code&gt;site.data.members&lt;/code&gt;来访问这个数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;_site&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;这个是生成的站点文件防止的地方，这个文件夹刚好也可以是你的git文件夹&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;index.html&lt;/code&gt;或者其他&lt;/td&gt;
+      &lt;td&gt;都会被Jekyll转换&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;其他文件与文件夹&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;其他的一些CSS文件或者图片文件都会直接复制过去。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;另外在配置文件里还有&lt;a href=&quot;http://jekyllrb.com/docs/configuration/&quot;&gt;很多选项&lt;/a&gt;可以设置，不过暂时还没有关心的必要。&lt;/p&gt;
+
+&lt;p&gt;接下来是比较关乎日常写博客的内容，我们从Front-matter开始，任何一个有如下YAML Front-matter头格式的文件，将会被Jekyll做特殊处理:
+&lt;code&gt;
+---
+layout: post
+title: Blogging Like a Hacker
+---
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;front-matter&quot;&gt;以下是你会常用到的Front-matter选项：&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;变量&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;layout&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;就是你在&lt;code&gt;_layout&lt;/code&gt;里面有设置的排版，自带的有&lt;code&gt;default&lt;/code&gt;, &lt;code&gt;post&lt;/code&gt;, &lt;code&gt;page&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;permalink&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;如果你不希望博文的链接是&lt;code&gt;/year/month/day/title.html/&lt;/code&gt;你可以主动设置博文的永久链接&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;published&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;如果你在生成站点的时候不想发表这篇文章，你可以把这个属性设置成false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;category&lt;/code&gt; &lt;code&gt;categories&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;相当于文章的&lt;code&gt;tag&lt;/code&gt;、分类或者文件夹&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;tags&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;其实都差不多&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;开始撰写博客&lt;/h2&gt;
+
+</description>
+        <pubDate>Fri, 04 Jul 2014 01:02:00 +0800</pubDate>
+        <link>http://lejia.li/experiences/blog/2014/07/04/Jekyll-and-github/</link>
+        <guid isPermaLink="true">http://lejia.li/experiences/blog/2014/07/04/Jekyll-and-github/</guid>
+        
+        
+        <category>experiences</category>
+        
+        <category>blog</category>
+        
+      </item>
+    
+  </channel>
+</rss>
