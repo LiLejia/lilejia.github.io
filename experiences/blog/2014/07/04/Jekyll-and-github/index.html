@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>用Jekyllrb与Github.io来搭建个人博客</title>
+    <title>用Jekyll与Github.io来搭建个人博客</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
     <link rel="canonical" href="http://lejia.li/experiences/blog/2014/07/04/Jekyll-and-github/">
@@ -56,12 +56,12 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>用Jekyllrb与Github.io来搭建个人博客</h1>
-    <p class="meta">Jul 4, 2014 • Henry Lee</p>
+    <h1>用Jekyll与Github.io来搭建个人博客</h1>
+    <p class="meta">Jul 4, 2014 • Li Lejia</p>
   </header>
 
   <article class="post-content">
-  <h1 id="jekylgithubio">用Jekyl与Github.io来搭建个人博客</h1>
+  <h1 id="jekyllgithubio">用Jekyll与Github.io来搭建个人博客</h1>
 
 <p>下班，折腾折腾，九点钟边看着一百七十多分钟的《音乐之声》边开始了博客的迁移，现在真的没有比Jekyl+github.io更方便的了吧，Wordpress从来没有觉得顺畅过，当然，最关键的是github.io不需要和Linux打交道，纯静态页面。</p>
 
@@ -71,35 +71,31 @@
 
 <p>三条命令你就能看到你本地的Jekyllrb了：</p>
 
-<p><code>
-~ $ gem install jekyll
-~ $ jekyll new myblog
-~ $ cd myblog
-~/myblog $ jekyll serve
-# =&gt; Now browse to http://localhost:4000
-</code></p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">~ <span class="nv">$ </span>gem install jekyll
+~ <span class="nv">$ </span>jekyll new myblog
+~ <span class="nv">$ </span><span class="nb">cd </span>myblog
+~/myblog <span class="nv">$ </span>jekyll serve
+<span class="c"># =&gt; Now browse to http://localhost:4000</span></code></pre></div>
 
 <p>在你自定义的myblog文件夹里，目录应该差不多类似下面：</p>
 
-<p><code>
-├── _config.yml
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">├── _config.yml
 ├── _drafts
-|   ├── begin-with-the-crazy-ideas.textile
-|   └── on-simplicity-in-technology.markdown
+<span class="p">|</span>   ├── begin-with-the-crazy-ideas.textile
+<span class="p">|</span>   └── on-simplicity-in-technology.markdown
 ├── _includes
-|   ├── footer.html
-|   └── header.html
+<span class="p">|</span>   ├── footer.html
+<span class="p">|</span>   └── header.html
 ├── _layouts
-|   ├── default.html
-|   └── post.html
+<span class="p">|</span>   ├── default.html
+<span class="p">|</span>   └── post.html
 ├── _posts
-|   ├── 2007-10-29-why-every-programmer-should-play-nethack.textile
-|   └── 2009-04-26-barcamp-boston-4-roundup.textile
+<span class="p">|</span>   ├── 2007-10-29-why-every-programmer-should-play-nethack.textile
+<span class="p">|</span>   └── 2009-04-26-barcamp-boston-4-roundup.textile
 ├── _data
-|   └── members.yml
+<span class="p">|</span>   └── members.yml
 ├── _site
-└── index.html
-</code></p>
+└── index.html</code></pre></div>
 
 <h3 id="section">这些文件与文件夹分别代表的是：</h3>
 

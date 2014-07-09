@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Li Lejia's blog</title>
+    <title>Objective-C里@public、@protected和@private更深一点点的区别</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
-    <link rel="canonical" href="http://lejia.li/">
+    <link rel="canonical" href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/main.css">
@@ -53,63 +53,77 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="home">
+      <div class="post">
 
-  <h1>Posts</h1>
+  <header class="post-header">
+    <h1>Objective-C里@public、@protected和@private更深一点点的区别</h1>
+    <p class="meta">Jun 21, 2014 • Li Lejia</p>
+  </header>
 
-  <ul class="posts">
-    
-      <li>
-        <span class="post-date">Jul 4, 2014</span>
-        <a class="post-link" href="/experiences/blog/2014/07/04/Jekyll-and-github/">用Jekyll与Github.io来搭建个人博客</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jun 22, 2014</span>
-        <a class="post-link" href="/experiences/blog/2014/06/22/nsfilemanager-thread/">NSFilemanager的线程安全性</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jun 21, 2014</span>
-        <a class="post-link" href="/experiences/blog/2014/06/21/Objc-public-protected-private/">Objective-C里@public、@protected和@private更深一点点的区别</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jun 7, 2014</span>
-        <a class="post-link" href="/blog/2014/06/07/from-api-to-apple-empire/">苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Nov 8, 2013</span>
-        <a class="post-link" href="/blog/2013/11/08/category-property/">Objective-C 在Category里添加Property的宏</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Apr 23, 2013</span>
-        <a class="post-link" href="/blog/2013/04/23/GCD-block-arc/">GCD, Block, 与ARC的关系</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Dec 7, 2012</span>
-        <a class="post-link" href="/blog/2012/12/07/newtown-method/">牛顿法的计算方法与实现</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jul 23, 2012</span>
-        <a class="post-link" href="/blog/2012/07/23/how-to-learn/">怎样学习一项知识</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jul 15, 2012</span>
-        <a class="post-link" href="/blog/2012/07/15/ios-app-performance/">238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法</a>
-      </li>
-    
-  </ul>
+  <article class="post-content">
+  <p>感觉其实很多语法书里也不会讲得那么详尽，或者大家自然而然的以为这三个属性和C++里的无甚区别，其实不然。</p>
 
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+<p>首先，一致的是，对于拥有这些属性变量的类TestClass：</p>
+
+<p>@public 表示任何其他类可以访问这个变量。</p>
+
+<p>@protected 表示只有子类可以访问这个变量。</p>
+
+<p>@private 表示任何其他类不能访问这个变量。</p>
+
+<p>如果不标注，默认所有变量都是@protected。</p>
+
+<p>如果你对C++也不怎么熟悉（比如我），初看，你会觉得@public和@protected没有什么区别，因为一般在ObjC里，如果须要设置外部类要访问的变量，我们习惯把变量直接用@property和@synthesize直接生成get和set方法，但是其实ObjC还可以用指针-&gt;访问这些变量，这些语法可能延续自Smalltalk的习惯（待查证，不过注意Smalltalk可比C++老十几年，这是乔布斯从<a href="http://zh.wikipedia.org/wiki/Xerox_PARC">Xerox PARC</a>偷来的两样东西之一，另一个东西是图形界面）。</p>
+
+<p>例如以下代码，你可以尝试写入XCode，不用编译，你就能意识到区别。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">@interface</span> <span class="nc">TestClass</span> : <span class="bp">NSObject</span><span class="p">{</span>
+    <span class="k">@protected</span>
+    <span class="kt">int</span> <span class="n">protectedNumber</span><span class="p">;</span>
+    <span class="k">@private</span>
+    <span class="kt">int</span> <span class="n">privateNumber</span><span class="p">;</span>
+    <span class="k">@public</span>
+    <span class="kt">int</span> <span class="n">publicNumber</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">TestClass</span>
+<span class="k">@end</span>
+
+<span class="k">@interface</span> <span class="nc">TestChildClass</span> : <span class="nc">TestClass</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">TestChildClass</span>
+
+<span class="p">-</span> <span class="p">(</span><span class="kt">instancetype</span><span class="p">)</span><span class="nf">init</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">self</span> <span class="o">=</span> <span class="p">[</span><span class="nb">super</span> <span class="n">init</span><span class="p">]){</span>
+        <span class="nb">self</span><span class="o">-&gt;</span><span class="n">protectedNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="k">@interface</span> <span class="nc">OtherClass</span> : <span class="bp">NSObject</span>
+
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">OtherClass</span>
+
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">testMethod</span><span class="p">{</span>
+
+    <span class="n">TestChildClass</span> <span class="o">*</span><span class="n">testInstance</span> <span class="o">=</span> <span class="p">[</span><span class="n">TestChildClass</span> <span class="n">new</span><span class="p">];</span>
+    <span class="n">testInstance</span><span class="o">-&gt;</span><span class="n">publicNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;test number value is:%d&quot;</span><span class="p">,</span><span class="n">testInstance</span><span class="o">-&gt;</span><span class="n">publicNumber</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">@end</span></code></pre></div>
+
+<p>另外，如果你熟悉ObjC的runtime编程，访问过isa的struct，你应该早就明白了。</p>
+
+  </article>
 
 </div>
-
       </div>
     </div>
 

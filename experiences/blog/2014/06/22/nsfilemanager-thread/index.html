@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Li Lejia's blog</title>
+    <title>NSFilemanager的线程安全性</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
-    <link rel="canonical" href="http://lejia.li/">
+    <link rel="canonical" href="http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/main.css">
@@ -53,63 +53,31 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="home">
+      <div class="post">
 
-  <h1>Posts</h1>
+  <header class="post-header">
+    <h1>NSFilemanager的线程安全性</h1>
+    <p class="meta">Jun 22, 2014 • Li Lejia</p>
+  </header>
 
-  <ul class="posts">
-    
-      <li>
-        <span class="post-date">Jul 4, 2014</span>
-        <a class="post-link" href="/experiences/blog/2014/07/04/Jekyll-and-github/">用Jekyll与Github.io来搭建个人博客</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jun 22, 2014</span>
-        <a class="post-link" href="/experiences/blog/2014/06/22/nsfilemanager-thread/">NSFilemanager的线程安全性</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jun 21, 2014</span>
-        <a class="post-link" href="/experiences/blog/2014/06/21/Objc-public-protected-private/">Objective-C里@public、@protected和@private更深一点点的区别</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jun 7, 2014</span>
-        <a class="post-link" href="/blog/2014/06/07/from-api-to-apple-empire/">苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Nov 8, 2013</span>
-        <a class="post-link" href="/blog/2013/11/08/category-property/">Objective-C 在Category里添加Property的宏</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Apr 23, 2013</span>
-        <a class="post-link" href="/blog/2013/04/23/GCD-block-arc/">GCD, Block, 与ARC的关系</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Dec 7, 2012</span>
-        <a class="post-link" href="/blog/2012/12/07/newtown-method/">牛顿法的计算方法与实现</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jul 23, 2012</span>
-        <a class="post-link" href="/blog/2012/07/23/how-to-learn/">怎样学习一项知识</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Jul 15, 2012</span>
-        <a class="post-link" href="/blog/2012/07/15/ios-app-performance/">238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法</a>
-      </li>
-    
-  </ul>
+  <article class="post-content">
+  <p>如官方文档所说：</p>
 
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+<blockquote>
+  <p>The methods of the shared NSFileManager object can be called from multiple threads safely. However, if you use a delegate to receive notifications about the status of move, copy, remove, and link operations, you should create a unique instance of the file manager object, assign your delegate to that object, and use that file manager to initiate your operations.</p>
+</blockquote>
+
+<blockquote>
+  <p>In iOS and Mac OS X v 10.5 and later you should consider using [[NSFileManager alloc] init] rather than the singleton method defaultManager. Instances ofNSFileManager are considered thread-safe when created using [[NSFileManager alloc] init].</p>
+</blockquote>
+
+<p>[NSFileManager defautManager]不是线程安全的，但是[[NSFileManager alloc] init]是线程安全的，为了安全起见，不如全部用后者。</p>
+
+<p>PS：这和NSManagedObjectContext其实是差不多的。</p>
+
+  </article>
 
 </div>
-
       </div>
     </div>
 
