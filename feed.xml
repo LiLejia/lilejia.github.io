@@ -1,19 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Li Lejia&#39;s blog</title>
-    <description>This is some share from Li Lejia(李乐佳), hope it would help a little bit.</description>
-    <link>http://lejia.li/</link>
-    <atom:link href="http://lejia.li/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 09 Jul 2014 12:14:04 +0800</pubDate>
-    <lastBuildDate>Wed, 09 Jul 2014 12:14:04 +0800</lastBuildDate>
-    <generator>Jekyll v2.1.0</generator>
-    
-      <item>
-        <title>用Jekyll与Github.io来搭建个人博客</title>
-        <description>&lt;h1 id=&quot;jekyllgithubio&quot;&gt;用Jekyll与Github.io来搭建个人博客&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">Li Lejia's blog</title>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="http://lejia.li/feed.xml" />
+<link rel="alternate" type="text/html" href="http://lejia.li" />
+<updated>2014-07-09T16:11:29+00:00</updated>
+<id>http://lejia.li/</id>
+<author>
+  <name>Li Lejia</name>
+  <uri>http://lejia.li/</uri>
+  <email>leelejia@gmail.com</email>
+</author>
 
-&lt;p&gt;下班，折腾折腾，九点钟边看着一百七十多分钟的《音乐之声》边开始了博客的迁移，现在真的没有比Jekyl+github.io更方便的了吧，Wordpress从来没有觉得顺畅过，当然，最关键的是github.io不需要和Linux打交道，纯静态页面。&lt;/p&gt;
+
+<entry>
+  <title type="html"><![CDATA[用Jekyll与Github.io来搭建个人博客]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/" />
+  <id>http://lejia.li/blog/2014/07/04/Jekyll-and-github</id>
+  <published>2014-07-04T01:02:00+00:00</published>
+  <updated>2014-07-04T01:02:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;h2 id=&quot;jekyllgithubio&quot;&gt;用Jekyll与Github.io来搭建个人博客&lt;/h2&gt;
+
+&lt;p&gt;下班完折腾折腾，九点钟边看着一百七十多分钟的《音乐之声》边开始了博客的迁移，现在真的没有比Jekyl+github.io更方便的了吧，Wordpress从来没有觉得顺畅过，当然，最关键的是github.io不需要和Linux打交道，纯静态页面。&lt;/p&gt;
 
 &lt;p&gt;现在开始：&lt;/p&gt;
 
@@ -141,21 +154,23 @@ title: Blogging Like a Hacker
 
 &lt;h2 id=&quot;section-1&quot;&gt;开始撰写博客&lt;/h2&gt;
 
-</description>
-        <pubDate>Fri, 04 Jul 2014 01:02:00 +0800</pubDate>
-        <link>http://lejia.li/experiences/blog/2014/07/04/Jekyll-and-github/</link>
-        <guid isPermaLink="true">http://lejia.li/experiences/blog/2014/07/04/Jekyll-and-github/</guid>
-        
-        
-        <category>experiences</category>
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>NSFilemanager的线程安全性</title>
-        <description>&lt;p&gt;如官方文档所说：&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2014/07/04/Jekyll-and-github/&quot;&gt;用Jekyll与Github.io来搭建个人博客&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on July 04, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[NSFilemanager的线程安全性]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/" />
+  <id>http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread</id>
+  <published>2014-06-22T10:47:00+00:00</published>
+  <updated>2014-06-22T10:47:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;如官方文档所说：&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;The methods of the shared NSFileManager object can be called from multiple threads safely. However, if you use a delegate to receive notifications about the status of move, copy, remove, and link operations, you should create a unique instance of the file manager object, assign your delegate to that object, and use that file manager to initiate your operations.&lt;/p&gt;
@@ -165,38 +180,40 @@ title: Blogging Like a Hacker
   &lt;p&gt;In iOS and Mac OS X v 10.5 and later you should consider using [[NSFileManager alloc] init] rather than the singleton method defaultManager. Instances ofNSFileManager are considered thread-safe when created using [[NSFileManager alloc] init].&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;[NSFileManager defautManager]不是线程安全的，但是[[NSFileManager alloc] init]是线程安全的，为了安全起见，不如全部用后者。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[NSFileManager defautManager]&lt;/code&gt;不是线程安全的，但是&lt;code&gt;[[NSFileManager alloc] init]&lt;/code&gt;是线程安全的，为了安全起见，不如全部用后者。&lt;/p&gt;
 
-&lt;p&gt;PS：这和NSManagedObjectContext其实是差不多的。&lt;/p&gt;
-</description>
-        <pubDate>Sun, 22 Jun 2014 10:47:00 +0800</pubDate>
-        <link>http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/</link>
-        <guid isPermaLink="true">http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/</guid>
-        
-        
-        <category>experiences</category>
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>Objective-C里@public、@protected和@private更深一点点的区别</title>
-        <description>&lt;p&gt;感觉其实很多语法书里也不会讲得那么详尽，或者大家自然而然的以为这三个属性和C++里的无甚区别，其实不然。&lt;/p&gt;
+&lt;p&gt;PS：这和&lt;code&gt;NSManagedObjectContext&lt;/code&gt;其实是差不多的。&lt;/p&gt;
 
-&lt;p&gt;首先，一致的是，对于拥有这些属性变量的类TestClass：&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/&quot;&gt;NSFilemanager的线程安全性&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on June 22, 2014.&lt;/p&gt;</content>
+</entry>
 
-&lt;p&gt;@public 表示任何其他类可以访问这个变量。&lt;/p&gt;
 
-&lt;p&gt;@protected 表示只有子类可以访问这个变量。&lt;/p&gt;
+<entry>
+  <title type="html"><![CDATA[Objective-C里@public、@protected和@private更深一点点的区别]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/" />
+  <id>http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private</id>
+  <published>2014-06-21T23:52:00+00:00</published>
+  <updated>2014-06-21T23:52:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;感觉其实很多语法书里也不会讲得那么详尽，或者大家自然而然的以为这三个属性和C++里的无甚区别，其实不然。&lt;/p&gt;
 
-&lt;p&gt;@private 表示任何其他类不能访问这个变量。&lt;/p&gt;
+&lt;p&gt;首先，一致的是，对于拥有这些属性变量的类&lt;code&gt;TestClass&lt;/code&gt;：&lt;/p&gt;
 
-&lt;p&gt;如果不标注，默认所有变量都是@protected。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@public&lt;/code&gt; 表示任何其他类可以访问这个变量。&lt;/p&gt;
 
-&lt;p&gt;如果你对C++也不怎么熟悉（比如我），初看，你会觉得@public和@protected没有什么区别，因为一般在ObjC里，如果须要设置外部类要访问的变量，我们习惯把变量直接用@property和@synthesize直接生成get和set方法，但是其实ObjC还可以用指针-&amp;gt;访问这些变量，这些语法可能延续自Smalltalk的习惯（待查证，不过注意Smalltalk可比C++老十几年，这是乔布斯从&lt;a href=&quot;http://zh.wikipedia.org/wiki/Xerox_PARC&quot;&gt;Xerox PARC&lt;/a&gt;偷来的两样东西之一，另一个东西是图形界面）。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@protected&lt;/code&gt; 表示只有子类可以访问这个变量。&lt;/p&gt;
 
-&lt;p&gt;例如以下代码，你可以尝试写入XCode，不用编译，你就能意识到区别。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@private&lt;/code&gt; 表示任何其他类不能访问这个变量。&lt;/p&gt;
+
+&lt;p&gt;如果不标注，默认所有变量都是&lt;code&gt;@protected&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;如果你对C++也不怎么熟悉（比如我），初看，你会觉得&lt;code&gt;@public&lt;/code&gt;和&lt;code&gt;@protected&lt;/code&gt;没有什么区别，因为一般在ObjC里，如果须要设置外部类要访问的变量，我们习惯把变量直接用@property和@synthesize直接生成get和set方法，但是其实ObjC还可以用指针-&amp;gt;访问这些变量，这些语法可能延续自Smalltalk的习惯（待查证，不过注意Smalltalk可比C++老十几年，这是乔布斯从&lt;a href=&quot;http://zh.wikipedia.org/wiki/Xerox_PARC&quot;&gt;Xerox PARC&lt;/a&gt;偷来的两样东西之一，另一个东西是图形界面）。&lt;/p&gt;
+
+&lt;p&gt;例如以下代码，你可以尝试写入Xcode，不用编译，你就能意识到区别。&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;k&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TestClass&lt;/span&gt; : &lt;span class=&quot;bp&quot;&gt;NSObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;@protected&lt;/span&gt;
@@ -241,21 +258,23 @@ title: Blogging Like a Hacker
 &lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;另外，如果你熟悉ObjC的runtime编程，访问过isa的struct，你应该早就明白了。&lt;/p&gt;
-</description>
-        <pubDate>Sat, 21 Jun 2014 23:52:00 +0800</pubDate>
-        <link>http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/</link>
-        <guid isPermaLink="true">http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/</guid>
-        
-        
-        <category>experiences</category>
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</title>
-        <description>&lt;p&gt;相信许多开发者、业界人士甚至不少果粉都在6月3日凌晨熬夜看了苹果2014年WWDC Special Event的现场直播，无论是惊喜还是失望，WWDC作为一场开发者的大会，苹果终究只是在这次大会上给开发者带了新iOS与OS X测试版本、新的API与新的开发工具，没有传闻的iPhone 6，也没有Retina Macbook Air。&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/&quot;&gt;Objective-C里@public、@protected和@private更深一点点的区别&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on June 21, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/" />
+  <id>http://lejia.li/blog/2014/06/07/from-api-to-apple-empire</id>
+  <published>2014-06-07T06:57:00+00:00</published>
+  <updated>2014-06-07T06:57:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;相信许多开发者、业界人士甚至不少果粉都在6月3日凌晨熬夜看了苹果2014年WWDC Special Event的现场直播，无论是惊喜还是失望，WWDC作为一场开发者的大会，苹果终究只是在这次大会上给开发者带了新iOS与OS X测试版本、新的API与新的开发工具，没有传闻的iPhone 6，也没有Retina Macbook Air。&lt;/p&gt;
 
 &lt;p&gt;除去一些新功能的细节，Tim Cook与Craig Federighi带给大家最重要的一个主题是Continuity。从现场发布会的内容来说，Continuity指的是iOS设备之间、OS X设备之间、iOS设备与OS X设备之间的使用连续性，你可以从一台苹果设备无缝地跳到另一个设备来完成同一个任务，能完成的任务暂时包括iOS系统内置的电话、短信、邮件等功能。&lt;/p&gt;
 
@@ -280,19 +299,23 @@ title: Blogging Like a Hacker
 &lt;hr /&gt;
 
 &lt;p&gt;文章也发表在了&lt;a href=&quot;http://www.36kr.com/p/212674.html&quot;&gt;36kr&lt;/a&gt;。&lt;/p&gt;
-</description>
-        <pubDate>Sat, 07 Jun 2014 06:57:00 +0800</pubDate>
-        <link>http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/</link>
-        <guid isPermaLink="true">http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/</guid>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>Objective-C 在Category里添加Property的宏</title>
-        <description>&lt;p&gt;因为Category里只能用@Dynamic 自己写getter和setter所以定义了一个宏，来直接生成这两个方法，From 这里&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/&quot;&gt;苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on June 07, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Objective-C 在Category里添加Property的宏]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2013/11/08/category-property/" />
+  <id>http://lejia.li/blog/2013/11/08/category-property</id>
+  <published>2013-11-08T22:49:00+00:00</published>
+  <updated>2013-11-08T22:49:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;因为Category里只能用@Dynamic 自己写getter和setter所以定义了一个宏，来直接生成这两个方法，From 这里&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define ADD_DYNAMIC_PROPERTY(PROPERTY_TYPE,PROPERTY_NAME,SETTER_NAME) \&lt;/span&gt;
 &lt;span class=&quot;cp&quot;&gt;@dynamic PROPERTY_NAME ; \&lt;/span&gt;
@@ -310,34 +333,42 @@ title: Blogging Like a Hacker
 &lt;p&gt;Example: &lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;n&quot;&gt;ADD_DYNAMIC_PROPERTY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;NSString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-        <pubDate>Fri, 08 Nov 2013 22:49:00 +0800</pubDate>
-        <link>http://lejia.li/blog/2013/11/08/category-property/</link>
-        <guid isPermaLink="true">http://lejia.li/blog/2013/11/08/category-property/</guid>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>GCD, Block, 与ARC的关系</title>
-        <description>&lt;p&gt;调了一整天关于block的bug，终于窥探到了一些GCD, Block，ARC的关系，简单来说，为了iOS的用户界面更加流畅，苹果推出了更加底层的GCD，GCD是更加底层的C级别接口，为了实现回调，且为了与Obj-C代码更加兼容，自然也提出了类似于C语言函数指针而非函数指针的Block，但是gcd线程结束的不确定性，使block在异步调用时内存管理逻辑会非常复杂，从这个角度来说，苹果又为clang编译器推出了ARC，让编译器帮助你管理各种release；另一方面，也降低了很多初学者的学习成本与门槛，一箭N雕啊。&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2013/11/08/category-property/&quot;&gt;Objective-C 在Category里添加Property的宏&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on November 08, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[GCD, Block, 与ARC的关系]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2013/04/23/GCD-block-arc/" />
+  <id>http://lejia.li/blog/2013/04/23/GCD-block-arc</id>
+  <published>2013-04-23T02:12:00+00:00</published>
+  <updated>2013-04-23T02:12:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;调了一整天关于block的bug，终于窥探到了一些GCD, Block，ARC的关系，简单来说，为了iOS的用户界面更加流畅，苹果推出了更加底层的GCD，GCD是更加底层的C级别接口，为了实现回调，且为了与Obj-C代码更加兼容，自然也提出了类似于C语言函数指针而非函数指针的Block，但是gcd线程结束的不确定性，使block在异步调用时内存管理逻辑会非常复杂，从这个角度来说，苹果又为clang编译器推出了ARC，让编译器帮助你管理各种release；另一方面，也降低了很多初学者的学习成本与门槛，一箭N雕啊。&lt;/p&gt;
 
 &lt;p&gt;别忘了，这三个特性都是iOS 4.0提出的，写下博客的时候，已经是6.1.3，我已经落后最先进思想两年多了。&lt;/p&gt;
-</description>
-        <pubDate>Tue, 23 Apr 2013 02:12:00 +0800</pubDate>
-        <link>http://lejia.li/blog/2013/04/23/GCD-block-arc/</link>
-        <guid isPermaLink="true">http://lejia.li/blog/2013/04/23/GCD-block-arc/</guid>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>牛顿法的计算方法与实现</title>
-        <description>&lt;p&gt;&lt;a href=&quot;http://zh.wikipedia.org/wiki/%E7%89%9B%E9%A1%BF%E6%B3%95&quot;&gt;牛顿法&lt;/a&gt;，是牛顿在十七世纪提出的在实数域与复数域上求近似方程解的方法。方法使用函数f(x）的泰勒级数的前面几项来寻找方程f(x) = 0的根。牛顿迭代法是求方程根的重要方法之一，其最大优点是在方程f(x) = 0的单根附近具有平方收敛，而且该法还可以用来求方程的重根、复根，此时线性收敛，但是可通过一些方法变成超线性收敛。（其实是最简单的高数了）。&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2013/04/23/GCD-block-arc/&quot;&gt;GCD, Block, 与ARC的关系&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on April 23, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[牛顿法的计算方法与实现]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2012/12/07/newtown-method/" />
+  <id>http://lejia.li/blog/2012/12/07/newtown-method</id>
+  <published>2012-12-07T16:58:00+00:00</published>
+  <updated>2012-12-07T16:58:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;a href=&quot;http://zh.wikipedia.org/wiki/%E7%89%9B%E9%A1%BF%E6%B3%95&quot;&gt;牛顿法&lt;/a&gt;，是牛顿在十七世纪提出的在实数域与复数域上求近似方程解的方法。方法使用函数f(x）的泰勒级数的前面几项来寻找方程f(x) = 0的根。牛顿迭代法是求方程根的重要方法之一，其最大优点是在方程f(x) = 0的单根附近具有平方收敛，而且该法还可以用来求方程的重根、复根，此时线性收敛，但是可通过一些方法变成超线性收敛。（其实是最简单的高数了）。&lt;/p&gt;
 
 &lt;h4 id=&quot;section&quot;&gt;计算：&lt;/h4&gt;
 &lt;pre&gt;&lt;code&gt;y=f(x)的近似根，也就是f(x)=0
@@ -347,15 +378,15 @@ title: Blogging Like a Hacker
 
 &lt;h4 id=&quot;section-1&quot;&gt;解：&lt;/h4&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;任取x=0附近一点x0，在曲线上的点为(x0, f(x0))&lt;/li&gt;
-  &lt;li&gt;x0点上的切线斜率为其倒数f’(x0)，所以求得它的切线为 y=f’(x0)x+f(x0)-f’(x0)*x0&lt;/li&gt;
-  &lt;li&gt;切线与x轴的交点为 x1=(f’(x0)*x0-f(x0))/f’(x0)&lt;/li&gt;
-&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;1.	任取x=0附近一点x0，在曲线上的点为(x0, f(x0))
+2.	x0点上的切线斜率为其倒数f&#39;(x0)，所以求得它的切线为 y=f&#39;(x0)x+f(x0)-f&#39;(x0)*x0
+3.	切线与x轴的交点为 x1=(f&#39;(x0)*x0-f(x0))/f&#39;(x0)
 
-&lt;p&gt;所以，得到的关系为 Xn+1 = (f’(Xn)*Xn-f(Xn))/f’(Xn) = Xn - f(Xn)/f’(Xn)  (可以证明，这个级数在什么条件下收敛)&lt;/p&gt;
 
-&lt;p&gt;所以，我们就可以利用这个关系算出一定精度下的X的解了。（BTW: Xn+1 = Xn - f(Xn)/f’(Xn)  ==&amp;gt; f’(Xn) =  f(Xn)/(Xn-Xn+1) ）&lt;/p&gt;
+所以，得到的关系为 Xn+1 = (f&#39;(Xn)*Xn-f(Xn))/f&#39;(Xn) = Xn - f(Xn)/f&#39;(Xn)  (可以证明，这个级数在什么条件下收敛)
+
+所以，我们就可以利用这个关系算出一定精度下的X的解了。（BTW: Xn+1 = Xn - f(Xn)/f&#39;(Xn)  ==&amp;gt; f&#39;(Xn) =  f(Xn)/(Xn-Xn+1) ）
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&quot;section-2&quot;&gt;例 1：&lt;/h4&gt;
 &lt;pre&gt;&lt;code&gt;计算value的平方根
@@ -447,19 +478,23 @@ title: Blogging Like a Hacker
 &lt;hr /&gt;
 
 &lt;p&gt;这篇文章的idea其实是来自于王小波的&lt;a href=&quot;http://book.douban.com/subject/1418686/&quot;&gt;《红拂夜奔》&lt;/a&gt;里关于开平方机的制造，按照牛顿法分析，一个机械的开平方机似乎完全是可行的。&lt;/p&gt;
-</description>
-        <pubDate>Fri, 07 Dec 2012 16:58:00 +0800</pubDate>
-        <link>http://lejia.li/blog/2012/12/07/newtown-method/</link>
-        <guid isPermaLink="true">http://lejia.li/blog/2012/12/07/newtown-method/</guid>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>怎样学习一项知识</title>
-        <description>&lt;h3 id=&quot;section&quot;&gt;学习一项知识，必须问自己的三个重要问题&lt;/h3&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2012/12/07/newtown-method/&quot;&gt;牛顿法的计算方法与实现&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on December 07, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[怎样学习一项知识]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2012/07/23/how-to-learn/" />
+  <id>http://lejia.li/blog/2012/07/23/how-to-learn</id>
+  <published>2012-07-23T15:07:00+00:00</published>
+  <updated>2012-07-23T15:07:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;h3 id=&quot;section&quot;&gt;学习一项知识，必须问自己的三个重要问题：&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;1、它的本质是什么
 
@@ -485,19 +520,23 @@ title: Blogging Like a Hacker
 7、人的思维天生就是极易刘御表面来理解事物的。问自己：真的理解了么？？？
 &lt;/code&gt;&lt;/pre&gt;
 
-</description>
-        <pubDate>Mon, 23 Jul 2012 15:07:00 +0800</pubDate>
-        <link>http://lejia.li/blog/2012/07/23/how-to-learn/</link>
-        <guid isPermaLink="true">http://lejia.li/blog/2012/07/23/how-to-learn/</guid>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法</title>
-        <description>&lt;h2 id=&quot;ios-app-performance-graphics-and-animations&quot;&gt;238 iOS App Performance Graphics and Animations&lt;/h2&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2012/07/23/how-to-learn/&quot;&gt;怎样学习一项知识&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on July 23, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2012/07/15/ios-app-performance/" />
+  <id>http://lejia.li/blog/2012/07/15/ios-app-performance</id>
+  <published>2012-07-15T14:25:00+00:00</published>
+  <updated>2012-07-15T14:25:00+00:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;h2 id=&quot;ios-app-performance-graphics-and-animations&quot;&gt;238 iOS App Performance Graphics and Animations&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -593,15 +632,8 @@ title: Blogging Like a Hacker
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://m2.img.srcdd.com/farm5/d/2012/0715/14/FCA698286F77192F4EFA75F612578688_B500_900_500_315.JPEG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 15 Jul 2012 14:25:00 +0800</pubDate>
-        <link>http://lejia.li/blog/2012/07/15/ios-app-performance/</link>
-        <guid isPermaLink="true">http://lejia.li/blog/2012/07/15/ios-app-performance/</guid>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-  </channel>
-</rss>
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2012/07/15/ios-app-performance/&quot;&gt;238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on July 15, 2012.&lt;/p&gt;</content>
+</entry>
+
+</feed>

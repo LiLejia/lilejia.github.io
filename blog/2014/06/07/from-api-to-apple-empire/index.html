@@ -1,67 +1,131 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向 &#8211; Li Lejia's blog</title>
+<meta name="description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
+<meta name="keywords" content="">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
-    <link rel="canonical" href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/">
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lejia.li/images/">
+<meta name="twitter:title" content="苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向">
+<meta name="twitter:description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
+<meta name="twitter:creator" content="@twitter.com/lilejia">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/main.css">
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向">
+<meta property="og:description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
+<meta property="og:url" content="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/">
+<meta property="og:site_name" content="Li Lejia's blog">
+
+
+
+
+
+<link rel="canonical" href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/">
+<link href="http://lejia.li/feed.xml" type="application/atom+xml" rel="alternate" title="Li Lejia's blog Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://lejia.li/assets/css/main.min.css">
+<!-- Webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="http://lejia.li/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://lejia.li/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lejia.li/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lejia.li/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lejia.li/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lejia.li/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lejia.li/images/apple-touch-icon-144x144-precomposed.png">
+
+
 
 </head>
 
+<body id="post" >
 
-    <body>
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="http://lejia.li">Home</a></li>
+		<li>
+			<a href="#">About</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="http://lejia.li/images/avatar.jpg" alt="Li Lejia photo" class="author-photo">
+					<h4>Li Lejia</h4>
+					<p>iOS & OS X Developer</p>
+				</li>
+				<li><a href="http://lejia.li/about/">Learn More</a></li>
+				<li>
+					<a href="mailto:leelejia@gmail.com"><i class="fa fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="http://twitter.com/twitter.com/lilejia"><i class="fa fa-twitter"></i> Twitter</a>
+				</li>
+				
+				
+				
+				<li>
+					<a href="http://github.com/github.com/lilejia"><i class="fa fa-github"></i> GitHub</a>
+				</li>
+				
+				
+				
+				
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">Posts</a>
+			<ul class="dl-submenu">
+				<li><a href="http://lejia.li/posts/">All Posts</a></li>
+				<li><a href="http://lejia.li/tags/">All Tags</a></li>
+			</ul>
+		</li>
+		<li><a href="http://lejia.li/theme-setup">Theme Setup</a></li><li><a href="http://mademistakes.com">External Link</a></li>
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
 
-    <header class="site-header">
 
-  <div class="wrap">
 
-    <a class="site-title" href="/">Li Lejia's blog</a>
 
-    <nav class="site-nav">
-      <a href="#" class="menu-icon">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
-          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
-            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
-            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
-            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
-      <div class="trigger">
+<div id="main" role="main">
+  <article class="hentry">
+    <header class="header-title">
+      <div class="header-title-wrap">
         
-          <a class="page-link" href="/about/">About</a>
+          <h1 class="entry-title"><a href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/" rel="bookmark" title="苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向">苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</a></h1>
         
-          
+        <h2>June 07, 2014</h2>
         
-          
-        
-      </div>
-    </nav>
-
-  </div>
-
-</header>
-
-
-    <div class="page-content">
-      <div class="wrap">
-      <div class="post">
-
-  <header class="post-header">
-    <h1>苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</h1>
-    <p class="meta">Jun 7, 2014 • Li Lejia</p>
-  </header>
-
-  <article class="post-content">
-  <p>相信许多开发者、业界人士甚至不少果粉都在6月3日凌晨熬夜看了苹果2014年WWDC Special Event的现场直播，无论是惊喜还是失望，WWDC作为一场开发者的大会，苹果终究只是在这次大会上给开发者带了新iOS与OS X测试版本、新的API与新的开发工具，没有传闻的iPhone 6，也没有Retina Macbook Air。</p>
+      </div><!-- /.header-title-wrap -->
+    </header>
+    <div class="entry-content">
+      <p>相信许多开发者、业界人士甚至不少果粉都在6月3日凌晨熬夜看了苹果2014年WWDC Special Event的现场直播，无论是惊喜还是失望，WWDC作为一场开发者的大会，苹果终究只是在这次大会上给开发者带了新iOS与OS X测试版本、新的API与新的开发工具，没有传闻的iPhone 6，也没有Retina Macbook Air。</p>
 
 <p>除去一些新功能的细节，Tim Cook与Craig Federighi带给大家最重要的一个主题是Continuity。从现场发布会的内容来说，Continuity指的是iOS设备之间、OS X设备之间、iOS设备与OS X设备之间的使用连续性，你可以从一台苹果设备无缝地跳到另一个设备来完成同一个任务，能完成的任务暂时包括iOS系统内置的电话、短信、邮件等功能。</p>
 
@@ -87,74 +151,55 @@
 
 <p>文章也发表在了<a href="http://www.36kr.com/p/212674.html">36kr</a>。</p>
 
+      <footer class="entry-meta">
+        <span class="entry-tags"></span>
+        <span><a href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/" rel="bookmark" title="苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向">苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</a> was published on <span class="entry-date date published updated"><time datetime="2014-06-07T06:57:00+00:00">June 07, 2014</time></span></span>
+        
+        <span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
+        
+      </footer>
+    </div><!-- /.entry-content -->
+    
+    
+    <div class="read-more">
+      
+        <div class="read-more-header">
+          <a href="http://lejia.li/blog/2013/11/08/category-property/" class="read-more-btn">Read More</a>
+        </div><!-- /.read-more-header -->
+        <div class="read-more-content">
+          <h3><a href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/" title="用Jekyll与Github.io来搭建个人博客">用Jekyll与Github.io来搭建个人博客</a></h3>
+          <p>##用Jekyll与Github.io来搭建个人博客下班完折腾折腾，九点钟边看着一百七十多分钟的《音乐之声》边开始了博客的迁移，现在真的没有比Jekyl+github.io更方便的了吧，Wordpress从来没有觉得顺畅过，当然，最关键的是github.io不需要和Linu...&hellip; <a href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/">Continue reading</a></p>
+        </div><!-- /.read-more-content -->
+      
+      <div class="read-more-list">
+        
+          <div class="list-item">
+            <h4><a href="http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/" title="NSFilemanager的线程安全性">NSFilemanager的线程安全性</a></h4>
+            <span>Published on June 22, 2014</span>
+          </div><!-- /.list-item -->
+        
+          <div class="list-item">
+            <h4><a href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/" title="Objective-C里@public、@protected和@private更深一点点的区别">Objective-C里@public、@protected和@private更深一点点的区别</a></h4>
+            <span>Published on June 21, 2014</span>
+          </div><!-- /.list-item -->
+        
+      </div><!-- /.read-more-list -->
+      
+    </div><!-- /.read-more -->
   </article>
+</div><!-- /#main -->
 
-</div>
-      </div>
-    </div>
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 Li Lejia. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/">HPSTR Theme</a>.</span>
+  </footer>
+</div><!-- /.footer-wrapper -->
 
-    <footer class="site-footer">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://lejia.li/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://lejia.li/assets/js/scripts.min.js"></script>
 
-  <div class="wrap">
+	        
 
-    <h2 class="footer-heading">Li Lejia's blog</h2>
-
-    <div class="footer-col-1 column">
-      <ul>
-        <li>Li Lejia's blog</li>
-        <li><a href="mailto:leelejia@gmail.com">leelejia@gmail.com</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col-2 column">
-      <ul>
-        <li>
-          <a href="https://github.com/lilejia">
-            <span class="icon github">
-              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
-                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
-                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
-                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
-                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
-                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
-                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
-                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
-                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
-              </svg>
-            </span>
-            <span class="username">lilejia</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/lilejia">
-            <span class="icon twitter">
-              <svg version="1.1" class="twitter-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-                <path fill="#C2C2C2" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
-                c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27
-                c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767
-                c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206
-                C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271
-                c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469
-                c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
-              </svg>
-            </span>
-            <span class="username">lilejia</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="footer-col-3 column">
-      <p class="text">This is some share from Li Lejia(李乐佳), hope it would help a little bit.</p>
-    </div>
-
-  </div>
-
-</footer>
-
-
-    </body>
+</body>
 </html>
