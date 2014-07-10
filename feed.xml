@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lejia.li/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lejia.li" />
-<updated>2014-07-09T16:13:56+00:00</updated>
+<updated>2014-07-10T16:18:16+08:00</updated>
 <id>http://lejia.li/</id>
 <author>
   <name>Li Lejia</name>
@@ -17,8 +17,8 @@
   <title type="html"><![CDATA[用Jekyll与Github.io来搭建个人博客]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/" />
   <id>http://lejia.li/blog/2014/07/04/Jekyll-and-github</id>
-  <published>2014-07-04T01:02:00+00:00</published>
-  <updated>2014-07-04T01:02:00+00:00</updated>
+  <published>2014-07-04T01:02:00+08:00</published>
+  <updated>2014-07-04T01:02:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -163,8 +163,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[NSFilemanager的线程安全性]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/" />
   <id>http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread</id>
-  <published>2014-06-22T10:47:00+00:00</published>
-  <updated>2014-06-22T10:47:00+00:00</updated>
+  <published>2014-06-22T10:47:00+08:00</published>
+  <updated>2014-06-22T10:47:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -192,8 +192,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[Objective-C里@public、@protected和@private更深一点点的区别]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/" />
   <id>http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private</id>
-  <published>2014-06-21T23:52:00+00:00</published>
-  <updated>2014-06-21T23:52:00+00:00</updated>
+  <published>2014-06-21T23:52:00+08:00</published>
+  <updated>2014-06-21T23:52:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -267,8 +267,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/" />
   <id>http://lejia.li/blog/2014/06/07/from-api-to-apple-empire</id>
-  <published>2014-06-07T06:57:00+00:00</published>
-  <updated>2014-06-07T06:57:00+00:00</updated>
+  <published>2014-06-07T06:57:00+08:00</published>
+  <updated>2014-06-07T06:57:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -308,8 +308,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[Objective-C 在Category里添加Property的宏]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/blog/2013/11/08/category-property/" />
   <id>http://lejia.li/blog/2013/11/08/category-property</id>
-  <published>2013-11-08T22:49:00+00:00</published>
-  <updated>2013-11-08T22:49:00+00:00</updated>
+  <published>2013-11-08T22:49:00+08:00</published>
+  <updated>2013-11-08T22:49:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -342,8 +342,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[GCD, Block, 与ARC的关系]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/blog/2013/04/23/GCD-block-arc/" />
   <id>http://lejia.li/blog/2013/04/23/GCD-block-arc</id>
-  <published>2013-04-23T02:12:00+00:00</published>
-  <updated>2013-04-23T02:12:00+00:00</updated>
+  <published>2013-04-23T02:12:00+08:00</published>
+  <updated>2013-04-23T02:12:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -361,8 +361,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[牛顿法的计算方法与实现]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/blog/2012/12/07/newtown-method/" />
   <id>http://lejia.li/blog/2012/12/07/newtown-method</id>
-  <published>2012-12-07T16:58:00+00:00</published>
-  <updated>2012-12-07T16:58:00+00:00</updated>
+  <published>2012-12-07T16:58:00+08:00</published>
+  <updated>2012-12-07T16:58:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -487,8 +487,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[怎样学习一项知识]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/blog/2012/07/23/how-to-learn/" />
   <id>http://lejia.li/blog/2012/07/23/how-to-learn</id>
-  <published>2012-07-23T15:07:00+00:00</published>
-  <updated>2012-07-23T15:07:00+00:00</updated>
+  <published>2012-07-23T15:07:00+08:00</published>
+  <updated>2012-07-23T15:07:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
@@ -529,8 +529,8 @@ title: Blogging Like a Hacker
   <title type="html"><![CDATA[238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法]]></title>
  <link rel="alternate" type="text/html" href="http://lejia.li/blog/2012/07/15/ios-app-performance/" />
   <id>http://lejia.li/blog/2012/07/15/ios-app-performance</id>
-  <published>2012-07-15T14:25:00+00:00</published>
-  <updated>2012-07-15T14:25:00+00:00</updated>
+  <published>2012-07-15T14:25:00+08:00</published>
+  <updated>2012-07-15T14:25:00+08:00</updated>
   <author>
     <name>Li Lejia</name>
     <uri>http://lejia.li</uri>
