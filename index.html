@@ -135,6 +135,35 @@
 <article class="hentry">
   <header>
     <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2014-07-22T00:00:00+08:00"><a href="http://lejia.li/2014/07/22/Optional-of-Swift/">July 22, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="http://lejia.li/2014/07/22/Optional-of-Swift/" rel="bookmark" title="Optional Of Swift" itemprop="url">Optional Of Swift</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h2 id="optional-of-swift">Optional of Swift</h2>
+
+<p>“What is Optional” and “What can I do with it” may be your first two questions when it comes to <a href="https://developer.apple.com/library/prerelease/mac/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html"><code>Optional</code></a>.</p>
+
+<p>A question mark(?) or exclamatory mark(!) following a variable is the way Swift codes express Optional.</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">if</span> <span class="n">let</span> <span class="n">roomCount</span> <span class="o">=</span> <span class="n">john</span><span class="p">.</span><span class="n">residence</span><span class="o">?</span><span class="p">.</span><span class="n">numberOfRooms</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;John&#39;s residence has \(roomCount) room(s).&quot;</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Unable to retrieve the number of rooms.&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// prints &quot;Unable to retrieve the number of rooms.&quot;</span></code></pre></div>
+
+<p>As you may have known, in Swift compiler can speculate the type of a variable so most of the time you don’t need to assign the type whether it is a Bool, Int, Struct or String. While there always some ambiguity in Swift code compiler causing problem in compiler time or runtime, we have to help the compiler a little bit with a question mark(?) and exclamatory mark(!). We call this pattern Optional, a little cost for a variable coming without type. </p>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    <div class="entry-meta">
       <span class="entry-date date published updated"><time datetime="2014-07-04T01:02:00+08:00"><a href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/">July 04, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
       
     </div><!-- /.entry-meta -->
@@ -415,39 +444,6 @@ title: Blogging Like a Hacker
 <hr />
 
 <p>文章也发表在了<a href="http://www.36kr.com/p/212674.html">36kr</a>。</p>
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2013-11-08T22:49:00+08:00"><a href="http://lejia.li/blog/2013/11/08/category-property/">November 08, 2013</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="http://lejia.li/blog/2013/11/08/category-property/" rel="bookmark" title="Objective-C 在Category里添加Property的宏" itemprop="url">Objective-C 在Category里添加Property的宏</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <p>因为Category里只能用@Dynamic 自己写getter和setter所以定义了一个宏，来直接生成这两个方法，From 这里</p>
-
-<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#define ADD_DYNAMIC_PROPERTY(PROPERTY_TYPE,PROPERTY_NAME,SETTER_NAME) \</span>
-<span class="cp">@dynamic PROPERTY_NAME ; \</span>
-<span class="cp">static char kProperty##PROPERTY_NAME; \</span>
-<span class="cp">- ( PROPERTY_TYPE ) PROPERTY_NAME \</span>
-<span class="cp">{ \</span>
-<span class="cp">return ( PROPERTY_TYPE ) objc_getAssociatedObject(self, &amp;(kProperty##PROPERTY_NAME ) ); \</span>
-<span class="cp">} \</span>
-<span class="cp">\</span>
-<span class="cp">- (void) SETTER_NAME :( PROPERTY_TYPE ) PROPERTY_NAME \</span>
-<span class="cp">{ \</span>
-<span class="cp">objc_setAssociatedObject(self, &amp;kProperty##PROPERTY_NAME , PROPERTY_NAME , OBJC_ASSOCIATION_RETAIN); \</span>
-<span class="cp">} \</span></code></pre></div>
-
-<p>Example: </p>
-
-<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">ADD_DYNAMIC_PROPERTY</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span><span class="n">setTitle</span><span class="p">)</span></code></pre></div>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->

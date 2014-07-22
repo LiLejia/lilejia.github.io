@@ -1,0 +1,14 @@
+<h2 id="optional-of-swift">Optional of Swift</h2>
+
+<p>“What is Optional” and “What can I do with it” may be your first two questions when it comes to <a href="https://developer.apple.com/library/prerelease/mac/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html"><code>Optional</code></a>.</p>
+
+<p>A question mark(?) or exclamatory mark(!) following a variable is the way Swift codes express Optional.</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">if</span> <span class="n">let</span> <span class="n">roomCount</span> <span class="o">=</span> <span class="n">john</span><span class="p">.</span><span class="n">residence</span><span class="o">?</span><span class="p">.</span><span class="n">numberOfRooms</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;John&#39;s residence has \(roomCount) room(s).&quot;</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Unable to retrieve the number of rooms.&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// prints &quot;Unable to retrieve the number of rooms.&quot;</span></code></pre></div>
+
+<p>As you may have known, in Swift compiler can speculate the type of a variable so most of the time you don’t need to assign the type whether it is a Bool, Int, Struct or String. While there always some ambiguity in Swift code compiler causing problem in compiler time or runtime, we have to help the compiler a little bit with a question mark(?) and exclamatory mark(!). We call this pattern Optional, a little cost for a variable coming without type. </p>

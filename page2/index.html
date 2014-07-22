@@ -135,6 +135,39 @@
 <article class="hentry">
   <header>
     <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2013-11-08T22:49:00+08:00"><a href="http://lejia.li/blog/2013/11/08/category-property/">November 08, 2013</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="http://lejia.li/blog/2013/11/08/category-property/" rel="bookmark" title="Objective-C 在Category里添加Property的宏" itemprop="url">Objective-C 在Category里添加Property的宏</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <p>因为Category里只能用@Dynamic 自己写getter和setter所以定义了一个宏，来直接生成这两个方法，From 这里</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#define ADD_DYNAMIC_PROPERTY(PROPERTY_TYPE,PROPERTY_NAME,SETTER_NAME) \</span>
+<span class="cp">@dynamic PROPERTY_NAME ; \</span>
+<span class="cp">static char kProperty##PROPERTY_NAME; \</span>
+<span class="cp">- ( PROPERTY_TYPE ) PROPERTY_NAME \</span>
+<span class="cp">{ \</span>
+<span class="cp">return ( PROPERTY_TYPE ) objc_getAssociatedObject(self, &amp;(kProperty##PROPERTY_NAME ) ); \</span>
+<span class="cp">} \</span>
+<span class="cp">\</span>
+<span class="cp">- (void) SETTER_NAME :( PROPERTY_TYPE ) PROPERTY_NAME \</span>
+<span class="cp">{ \</span>
+<span class="cp">objc_setAssociatedObject(self, &amp;kProperty##PROPERTY_NAME , PROPERTY_NAME , OBJC_ASSOCIATION_RETAIN); \</span>
+<span class="cp">} \</span></code></pre></div>
+
+<p>Example: </p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">ADD_DYNAMIC_PROPERTY</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span><span class="n">setTitle</span><span class="p">)</span></code></pre></div>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    <div class="entry-meta">
       <span class="entry-date date published updated"><time datetime="2013-04-23T02:12:00+08:00"><a href="http://lejia.li/blog/2013/04/23/GCD-block-arc/">April 23, 2013</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
       
     </div><!-- /.entry-meta -->
