@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lejia.li/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lejia.li" />
-<updated>2014-07-22T20:55:45+08:00</updated>
+<updated>2014-10-25T23:14:11+08:00</updated>
 <id>http://lejia.li/</id>
 <author>
   <name>Li Lejia</name>
@@ -14,9 +14,121 @@
 
 
 <entry>
-  <title type="html"><![CDATA[Optional Of Swift]]></title>
- <link rel="alternate" type="text/html" href="http://lejia.li/2014/07/22/Optional-of-Swift/" />
-  <id>http://lejia.li/2014/07/22/Optional-of-Swift</id>
+  <title type="html"><![CDATA[关于苹果推送服务的证书]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2014/10/25/aps-cert/" />
+  <id>http://lejia.li/blog/2014/10/25/aps-cert</id>
+  <published>2014-10-25T11:13:00+08:00</published>
+  <updated>2014-10-25T11:13:00+08:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;h1 id=&quot;section&quot;&gt;关于苹果推送服务的证书&lt;/h1&gt;
+
+&lt;p&gt;之前的证书一直不是我弄的，所以浪费了好几个小时配合后端整推送的证书，网上的Demo其实很多很简单，但是也很杂，主要的有以下几个：&lt;/p&gt;
+
+&lt;h2 id=&quot;mac-demo&quot;&gt;Mac Demo&lt;/h2&gt;
+
+&lt;p&gt;最简单的要属于著名的&lt;a href=&quot;https://github.com/stefanhafeneger/PushMeBaby&quot;&gt;PushMeBaby&lt;/a&gt;，这个证书是用的.cer的证书，从Apple Develper Portal直接下下来的证书就是，不过前提是这个证书是你的电脑请求的或者别人分享给你了私钥，程序运行的时候也能发现它会弹出访问Keychain的提示，但是这个不是生产环境常用的情况。&lt;/p&gt;
+
+&lt;h2 id=&quot;php-demo&quot;&gt;PHP Demo&lt;/h2&gt;
+
+&lt;p&gt;另外一个Demo是PHP的，这个也是大家常用的一个版本，在&lt;a href=&quot;http://www.raywenderlich.com/32960&quot;&gt;RayWenderlich&lt;/a&gt;说得很详细，它的key是pem格式的证书文件。&lt;/p&gt;
+
+&lt;p&gt;生成这个pem，你需要得到从Developer Portal获得aps_development.cer以后，导入到Keychain，而后从Keychain导出aps_development.p12文件，导出以后，用openssl命令生成证书的pem文件：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;openssl x509 -in aps_development.cer -inform der -out PushCert.pem&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;再将aps_development.p12生成私钥，在这个过程中，你需要输入私钥的密码，并且两次输入新的pem私钥的新密码：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;openssl pkcs12 -nocerts -out PushChatKey.pem -in PushKey.p12
+Enter Import Password:
+MAC verified OK
+Enter PEM pass phrase:
+Verifying - Enter PEM pass phrase:&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;最后，生成一个pem文件：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat PushCert.pem PushKey.pem &amp;gt; ck.pem&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;而后你就可以用这段PHP代码来直接测试push啦：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Put your device token here (without spaces):&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$deviceToken&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Put your private key&amp;#39;s passphrase here:&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$passphrase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;xxxxxx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Put your alert message here:&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;My first push notification!&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;////////////////////////////////////////////////////////////////////////////////&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$ctx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;stream_context_create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;stream_context_set_option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;ssl&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;local_cert&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;ck.pem&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;stream_context_set_option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;ssl&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;passphrase&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$passphrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Open a connection to the APNS server&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;stream_socket_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;&amp;#39;ssl://gateway.push.apple.com:2195&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$errstr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;STREAM_CLIENT_CONNECT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;STREAM_CLIENT_PERSISTENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Failed to connect: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$err&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$errstr&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PHP_EOL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Connected to APNS&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PHP_EOL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Create the payload body&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;aps&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;&amp;#39;alert&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;&amp;#39;sound&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;default&amp;#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Encode the payload as JSON&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;json_encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Build the binary notification&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$msg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;H*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$deviceToken&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Send it to the server&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;fwrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Message not delivered&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PHP_EOL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Message successfully delivered&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PHP_EOL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Close the connection to the server&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;fclose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;java-demo&quot;&gt;Java Demo&lt;/h2&gt;
+
+&lt;p&gt;在生产环境里用得最多的还是Java的版本Java APNS(https://github.com/notnoop/java-apns)吧，它需要的是一个.p12的私钥，我今天尝试了半天，发现直接导出的密钥是不能用的，在Google了一阵以后，尝试把PHP Demo里已经work的pem转成.p12，结果竟然推送成功。&lt;/p&gt;
+
+&lt;p&gt;具体步骤大概是：&lt;/p&gt;
+
+&lt;p&gt;在得到PushCert.pem以后PushKey.pem以后，输入如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;chmod &lt;span class=&quot;m&quot;&gt;0600&lt;/span&gt; PushKey.pem
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;chmod &lt;span class=&quot;m&quot;&gt;0644&lt;/span&gt; PushCert.pem
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;openssl x509 -text -noout -in PushCert.pem
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;openssl pkcs12 -export -out certif.p12 -inkey Pushkey.pem -in Pushcert.pem&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;最后输入并且设置密码就好，成功！&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2014/10/25/aps-cert/&quot;&gt;关于苹果推送服务的证书&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on October 25, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Optional of Swift]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2014/07/22/Optional-of-Swift/" />
+  <id>http://lejia.li/blog/2014/07/22/Optional-of-Swift</id>
   <published>2014-07-22T00:00:00+08:00</published>
   <updated>2014-07-22T00:00:00+08:00</updated>
   <author>
@@ -39,7 +151,7 @@
 
 &lt;p&gt;As you may have known, in Swift compiler can speculate the type of a variable so most of the time you don’t need to assign the type whether it is a Bool, Int, Struct or String. While there always some ambiguity in Swift code compiler causing problem in compiler time or runtime, we have to help the compiler a little bit with a question mark(?) and exclamatory mark(!). We call this pattern Optional, a little cost for a variable coming without type. &lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://lejia.li/2014/07/22/Optional-of-Swift/&quot;&gt;Optional Of Swift&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on July 22, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2014/07/22/Optional-of-Swift/&quot;&gt;Optional of Swift&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on July 22, 2014.&lt;/p&gt;</content>
 </entry>
 
 

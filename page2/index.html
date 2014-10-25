@@ -135,6 +135,46 @@
 <article class="hentry">
   <header>
     <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2014-06-07T06:57:00+08:00"><a href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/">June 07, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/" rel="bookmark" title="苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向" itemprop="url">苹果盘子有多大？——从iOS/OS X技术细节看苹果的产品发展方向</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <p>相信许多开发者、业界人士甚至不少果粉都在6月3日凌晨熬夜看了苹果2014年WWDC Special Event的现场直播，无论是惊喜还是失望，WWDC作为一场开发者的大会，苹果终究只是在这次大会上给开发者带了新iOS与OS X测试版本、新的API与新的开发工具，没有传闻的iPhone 6，也没有Retina Macbook Air。</p>
+
+<p>除去一些新功能的细节，Tim Cook与Craig Federighi带给大家最重要的一个主题是Continuity。从现场发布会的内容来说，Continuity指的是iOS设备之间、OS X设备之间、iOS设备与OS X设备之间的使用连续性，你可以从一台苹果设备无缝地跳到另一个设备来完成同一个任务，能完成的任务暂时包括iOS系统内置的电话、短信、邮件等功能。</p>
+
+<p>看了直播或者视频，你会发现Tim和Craig是在用极其疯狂的速度串讲完了所有Keynote和Demo，丝毫不留给观众一些理解笑点的时间，基本丧失了演讲应有的戏剧性和节奏感，不是他们不想有，而是要讲的内容实在太多。而如果你是一位已经开始研究最新WWDC Session视频的苹果注册开发者，你会发现他们在两个小时内讲的这么多东西，完全只是冰山一角。</p>
+
+<p>在百余个WWDC Session中的What’s New in Cocoa Touch里，UIKit（iOS的整个视觉交互框架）的软件工程师Luke Hiesterman就开门见山地介绍了iOS 8的软件架构哲学与目标：Adaptivity，指的是iOS框架与开发者代码在不同设备之间的适用性。</p>
+
+<p>具体地来说，在iOS 8之前，当设备手持方向改变时，开发者需要根据设备的方向来具体判断，再完成不同的UI实现（长宽变化，如iPad相册在设备纵向时每行显示4栏，设备横向时每行显示5栏）；当同样的需求面对iPhone与iPad等不一样的设备，开发者需要根据设备类型来来具体判断，实现不同的视图展示内容、方式与动画（“设置”应用在iPhone上与iPad上的业务逻辑相同，但是展示方式不一样）；面对不同屏幕尺寸的设备，开发者还要分别实现与屏幕对应的字体大小、列表的高度与边距。但是面对以上这些繁琐问题，新的iOS 8都给出了统一的接口，让你用同一套代码就可以让同一功能在iPad和iPhone上无缝实现。</p>
+
+<p>而你会问，这又如何？以上的很多功能在iPad第一天出的时候就有考虑了，只是更优化了一些吧，但是，苹果其实给了更多。安装了XCode 6 Beta的开发者可能第一时间就发现了，模拟器里出现了两个新选项：Resizable iPhone和Resizable iPad，这两个模拟器能够让你在调试的时候，任意指定屏幕宽度或者高度（如图，同样的实现是只改了宽高），让你为同一套代码调试完全不同的任意宽高！前端开发者看到这应该笑了，这不就是Web开发里的响应式设计（Responsive Design）么！</p>
+
+<p>基于苹果为开发者提供的这类接口，大家的想象力可以任意发散：Resizable iPad屏幕再变大，即是Apple TV；Resizable iPhone再变大，便是5英寸、6英寸的iPhone；而Resizable iPhone变小，自然就是iWatch！这些iOS 8提供的新接口接口，让开发者用一套代码就可以覆盖所有的尺寸与设备！</p>
+
+<p>基于以上，再回顾一下OS X的一些新功能：你能用Macbook连着你的iPhone打电话、发短信，更能在Macbook上一键连接iPhone的3G/4G网络，即使你的iPhone在客厅而Macbook在书房。不过，苹果在发布会上的数据也说得很清楚，每10个iOS用户，才有1个OS X用户，以上的功能真的那么有必要、那么urgent么？当然不是，打电话、发短信与共享网络的Continuity当然完全是为了iWatch准备的！此外，苹果新推出的高性能游戏中间层Metal取代了OpenGL ES，让游戏画面的绘制更加靠近GPU，让游戏画质与复杂度又有了极大提升，这只是为了高分辨率iPad么？当然不止，还有一块更大的游戏终端蛋糕——Apple TV！到这里，你可以试想一下你与你的亲人在4K屏幕的Apple TV上Facetime时候的感觉了，iPhone与Apple TV同样会有超凡的Continuity特性，鬼知道那些天才的开发者能把这两个东西结合出什么样的鬼斧神工。</p>
+
+<p>以上，才是这次WWDC最让人惊叹的东西。</p>
+
+<p>而至此，你也应该不奇怪为什么苹果让Jonathan Ive同时担任硬件、软件的设计总裁，为什么让曾经只管OS X软件开发的Craig Federighi管理OS X和iOS两个团队—— Continuity And Adaptivity——现在与未来的所有苹果设备的无缝结合。</p>
+
+<p>而回到主题，从WWDC的技术细节管中窥豹苹果的长远战略，你更能理解罗马不是一天建成的，也更能发现那群聪明人的战略可不仅仅是建一座罗马城，而是罗马帝国。</p>
+
+<hr />
+
+<p>文章也发表在了<a href="http://www.36kr.com/p/212674.html">36kr</a>。</p>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    <div class="entry-meta">
       <span class="entry-date date published updated"><time datetime="2013-11-08T22:49:00+08:00"><a href="http://lejia.li/blog/2013/11/08/category-property/">November 08, 2013</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
       
     </div><!-- /.entry-meta -->
@@ -349,117 +389,6 @@
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
 
-<article class="hentry">
-  <header>
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2012-07-15T14:25:00+08:00"><a href="http://lejia.li/blog/2012/07/15/ios-app-performance/">July 15, 2012</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="http://lejia.li/blog/2012/07/15/ios-app-performance/" rel="bookmark" title="238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法" itemprop="url">238 iOS App Performance Graphics and Animations阅读笔记：应用提高图像与动画性能的一些方法</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h2 id="ios-app-performance-graphics-and-animations">238 iOS App Performance Graphics and Animations</h2>
-
-<ol>
-  <li>
-    <p>UIImageView 是由CALayer, UIImage-&gt;CGImage 构成的</p>
-
-    <p>CGImage 在加载的时候不会解码图像，只有在第一次用的时候才会解码图像。</p>
-
-    <p>所以，尽量用UIImageView 不要直接把图像画在 drawrect:</p>
-  </li>
-  <li>Xcode 提前为PNG做了很多优化，包括：
-    <ul>
-      <li>Premultiply alpha, and byte-swap</li>
-      <li>Turn off some PNG compression modes</li>
-      <li>Allow concurrent docdoing of a single image</li>
-    </ul>
-  </li>
-  <li>
-    <p>现在 iOS设备已经对JPEG图像做了很多的优化工作，现在也是很快的了，但是不建议用JPEG用作UI的元素 </p>
-  </li>
-  <li>
-    <p>不要用其他格式的图像！！！</p>
-  </li>
-  <li>
-    <p><code>[UIImage imageNamed: ]</code>将会Cache 图片在一个purgeable memory里</p>
-
-    <p><code>[UIImage imageWithContentOfFile: ]</code>不会Cache</p>
-  </li>
-  <li>当需要设置背景图片的时候，不要用：</li>
-</ol>
-
-<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawRect:</span><span class="p">(</span><span class="bp">CGRect</span><span class="p">)</span><span class="nv">rect</span><span class="p">{</span>
-	<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">image</span> <span class="nl">drwaInRect</span><span class="p">:[</span><span class="nb">self</span> <span class="n">bounds</span><span class="p">]</span> <span class="nl">blendMode</span><span class="p">:</span><span class="n">kCGBlendModeNormal</span> <span class="nl">alpha</span><span class="p">:</span><span class="mf">1.0</span><span class="p">];</span>
-<span class="p">}</span></code></pre></div>
-
-<pre><code>可以用：
-</code></pre>
-
-<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">contents</span> <span class="o">=</span> <span class="p">(</span><span class="kt">id</span><span class="p">)[</span><span class="nb">self</span><span class="p">.</span><span class="n">image</span> <span class="bp">CGImage</span><span class="p">];</span></code></pre></div>
-
-<ol>
-  <li>
-    <p>iOS 6新功能 myView.layer.drawAsynchronously = YES 对于一个view里有很多需要draw的内容来说，很有用，但是有时候会很差，需要用time profile验证以后再尝试 </p>
-  </li>
-  <li>
-    <p>在有很多绘图的应用中，1、用setNeedsDisplayInRect: 2、用巧用背景图</p>
-  </li>
-  <li>
-    <p>所有scrolling都需要 60 fps 小于 45用户依然能察觉</p>
-
-    <p>所以我们拥有的时间仅有： 16ms/frame </p>
-
-    <p>这个时候就要考虑优化功能是在GPU还是CPU了</p>
-
-    <pre><code> * CGDrawing 和 imageIO 是CPU
-
- * 渲染系统并不每一帧都工作在CPU上
-
- * 渲染本身是在GPU上的
-
- * 可以用OpenGL ES instruments 上的device utilization查看GPU使用情况
-</code></pre>
-
-    <p>如果是100%左右的，肯定是GPU</p>
-
-    <p>如果是16%之类的，就应该是CPU</p>
-
-    <p>如果是GPU，有一个 Core Animation instruments可以查看</p>
-
-    <p>在scrolling 的 16ms 中，我们需要做的是：</p>
-
-    <pre><code> * calculate new scrolling position
-
- * Prepare and commit animation
-
- * Render frame
-</code></pre>
-
-    <p>减少blending，blending就是经常需要多重画的</p>
-
-    <p>self.layer.shouldRasterize = YES</p>
-
-    <p>在Time profiler 里，如果有很多时间被浪费在了spring board 里，spring board实际是render server的所在，所以，结论应该是，应用里有太多的layer了。</p>
-  </li>
-</ol>
-
-<h3 id="section">最后的结论：</h3>
-
-<pre><code>1、多在不同设备上测试动画、他们的区别可能在于GPU, CPU, Retina blabla
-
-2、不同场景有不同的解决方法，到底是用drawRect? 还是用SubView？
-
-3、测量、测试、迭代
-</code></pre>
-
-<p><img src="http://m2.img.srcdd.com/farm5/d/2012/0715/14/FCA698286F77192F4EFA75F612578688_B500_900_500_315.JPEG" alt="Image" /></p>
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
 
 <div class="pagination">
   
@@ -480,9 +409,15 @@
         
       </li>
     
+      <li>
+        
+          <a href="http://lejia.li/page3">3</a>
+        
+      </li>
+    
   </ul>
   
-    Next
+    <a href="http://lejia.li/page3" class="btn">Next</a>
   
 </div><!-- /.pagination -->
 
