@@ -5,30 +5,30 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Optional of Swift &#8211; Li Lejia's blog</title>
+<title>如何在不改变Xcode工程的情况下集成Reveal &#8211; Li Lejia's blog</title>
 <meta name="description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
 <meta name="keywords" content="">
 
 <!-- Twitter Cards -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://lejia.li/images/">
-<meta name="twitter:title" content="Optional of Swift">
+<meta name="twitter:title" content="如何在不改变Xcode工程的情况下集成Reveal">
 <meta name="twitter:description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
 <meta name="twitter:creator" content="@lilejia">
 
 <!-- Open Graph -->
 <meta property="og:locale" content="zh_CN">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Optional of Swift">
+<meta property="og:title" content="如何在不改变Xcode工程的情况下集成Reveal">
 <meta property="og:description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
-<meta property="og:url" content="http://lejia.li/blog/2014/07/22/Optional-of-Swift/">
+<meta property="og:url" content="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/">
 <meta property="og:site_name" content="Li Lejia's blog">
 
 
 
 
 
-<link rel="canonical" href="http://lejia.li/blog/2014/07/22/Optional-of-Swift/">
+<link rel="canonical" href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/">
 <link href="http://lejia.li/feed.xml" type="application/atom+xml" rel="alternate" title="Li Lejia's blog Feed">
 
 
@@ -121,29 +121,47 @@
     <header class="header-title">
       <div class="header-title-wrap">
         
-          <h1 class="entry-title"><a href="http://lejia.li/blog/2014/07/22/Optional-of-Swift/" rel="bookmark" title="Optional of Swift">Optional of Swift</a></h1>
+          <h1 class="entry-title"><a href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/" rel="bookmark" title="如何在不改变Xcode工程的情况下集成Reveal">如何在不改变Xcode工程的情况下集成Reveal</a></h1>
         
-        <h2>July 22, 2014</h2>
+        <h2>October 26, 2014</h2>
         
       </div><!-- /.header-title-wrap -->
     </header>
     <div class="entry-content">
-      <p>“What is Optional” and “What can I do with it” may be your first two questions when it comes to <a href="https://developer.apple.com/library/prerelease/mac/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html"><code>Optional</code></a>.</p>
+      <p>读这篇文章的时候想必你早就非常喜欢用<a href="http://www.revealapp.com">Reveal</a>了，但是当你新建了一个工程而又想快速使用Reveal Debug的时候，你如何快速集成Reveal呢？(或者你不想影响你的原工程不至于在提交的时候忘记移除)。</p>
 
-<p>A question mark(?) or exclamatory mark(!) following a variable is the way Swift codes express Optional.</p>
+<p><em>LLDB 调试器将是你的解决方案</em></p>
 
-<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">if</span> <span class="n">let</span> <span class="n">roomCount</span> <span class="o">=</span> <span class="n">john</span><span class="p">.</span><span class="n">residence</span><span class="o">?</span><span class="p">.</span><span class="n">numberOfRooms</span> <span class="p">{</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;John&#39;s residence has \(roomCount) room(s).&quot;</span><span class="p">)</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Unable to retrieve the number of rooms.&quot;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="c1">// prints &quot;Unable to retrieve the number of rooms.&quot;</span></code></pre></div>
+<p>LLDB调试器能够执行你应用内的任意代码，所以你可以直接将Reveal加载到你现在的进程里。</p>
 
-<p>As you may have known, in Swift compiler can speculate the type of a variable so most of the time you don’t need to assign the type whether it is a Bool, Int, Struct or String. While there always some ambiguity in Swift code compiler causing problem in compiler time or runtime, we have to help the compiler a little bit with a question mark(?) and exclamatory mark(!). We call this pattern Optional, a little cost for a variable coming without type. </p>
+<p>暂停运行iOS，然后在LLDB调试器里输入：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">expr <span class="o">(</span>void*<span class="o">)</span>dlopen<span class="o">(</span><span class="s2">&quot;/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib&quot;</span>, 0x2<span class="o">)</span><span class="p">;</span>
+expr <span class="o">[(</span>NSNotificationCenter*<span class="o">)[</span>NSNotificationCenter defaultCenter<span class="o">]</span> postNotificationName:@<span class="s2">&quot;IBARevealRequestStart&quot;</span> object:nil<span class="o">]</span><span class="p">;</span>
+<span class="k">continue</span></code></pre></div>
+
+<p>十分简单对吧？</p>
+
+<p>我们还可以添加一些例如<code>reveal_load</code>的简单命令来让调试更加简单，你只要新建一个文本文件输入：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">command alias </span>reveal_load_sim expr <span class="o">(</span>void*<span class="o">)</span>dlopen<span class="o">(</span><span class="s2">&quot;/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib&quot;</span>, 0x2<span class="o">)</span><span class="p">;</span>
+<span class="nb">command alias </span>reveal_load_dev expr <span class="o">(</span>void*<span class="o">)</span>dlopen<span class="o">([(</span>NSString*<span class="o">)[(</span>NSBundle*<span class="o">)[</span>NSBundle mainBundle<span class="o">]</span> pathForResource:@<span class="s2">&quot;libReveal&quot;</span> ofType:@<span class="s2">&quot;dylib&quot;</span><span class="o">]</span> cStringUsingEncoding:0x4<span class="o">]</span>, 0x2<span class="o">)</span><span class="p">;</span>
+<span class="nb">command alias </span>reveal_start expr <span class="o">(</span>void<span class="o">)[(</span>NSNotificationCenter*<span class="o">)[</span>NSNotificationCenter defaultCenter<span class="o">]</span> postNotificationName:@<span class="s2">&quot;IBARevealRequestStart&quot;</span> object:nil<span class="o">]</span><span class="p">;</span>
+<span class="nb">command alias </span>reveal_stop expr <span class="o">(</span>void<span class="o">)[(</span>NSNotificationCenter*<span class="o">)[</span>NSNotificationCenter defaultCenter<span class="o">]</span> postNotificationName:@<span class="s2">&quot;IBARevealRequestStop&quot;</span> object:nil<span class="o">]</span><span class="p">;</span></code></pre></div>
+
+<ul>
+  <li><code>reveal_load_sim</code> 是指的在模拟器加载Reveal，最好确保你Reveal的安装位置和上面的写得一样。</li>
+  <li><code>reveal_load_dev</code> 是指的在真机调试或者模拟器下打开Reveal，不过如果实在真机，确保在<code>libReveal.dylib</code>放在了<em>Copy Resources</em>里，而非<em>Link Binary with Libraries</em>。</li>
+  <li><code>reveal_start</code> 发送调试开始的通知</li>
+  <li><code>reveal_stop</code>	发送终止的通知</li>
+</ul>
+
+<p>然后在LLDB Console里头像bash那样load文件 <code>~/.the_reveal_load_file</code> 就好啦！</p>
+
 
       <footer class="entry-meta">
         <span class="entry-tags"></span>
-        <span><a href="http://lejia.li/blog/2014/07/22/Optional-of-Swift/" rel="bookmark" title="Optional of Swift">Optional of Swift</a> was published on <span class="entry-date date published updated"><time datetime="2014-07-22T00:00:00+08:00">July 22, 2014</time></span></span>
+        <span><a href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/" rel="bookmark" title="如何在不改变Xcode工程的情况下集成Reveal">如何在不改变Xcode工程的情况下集成Reveal</a> was published on <span class="entry-date date published updated"><time datetime="2014-10-26T00:00:00+08:00">October 26, 2014</time></span></span>
         
         <span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
         
@@ -154,19 +172,19 @@
     <div class="read-more">
       
         <div class="read-more-header">
-          <a href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/" class="read-more-btn">Read More</a>
+          <a href="http://lejia.li/blog/2014/10/25/aps-cert/" class="read-more-btn">Read More</a>
         </div><!-- /.read-more-header -->
         <div class="read-more-content">
-          <h3><a href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/" title="如何在不改变Xcode工程的情况下集成Reveal">如何在不改变Xcode工程的情况下集成Reveal</a></h3>
-          <p>读这篇文章的时候想必你早就非常喜欢用[Reveal](http://www.revealapp.com)了，但是当你新建了一个工程而又想快速使用Reveal Debug的时候，你如何快速集成Reveal呢？(或者你不想影响你的原工程不至于在提交的时候忘记移除)。*LLDB ...&hellip; <a href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/">Continue reading</a></p>
+          <h3><a href="http://lejia.li/blog/2014/10/25/aps-cert/" title="关于苹果推送服务的证书">关于苹果推送服务的证书</a></h3>
+          <p>之前的证书一直不是我弄的，所以浪费了好几个小时配合后端整推送的证书，网上的Demo其实很多很简单，但是也很杂，主要的有以下几个：Mac Demo最简单的要属于著名的PushMeBaby，这个证书是用的.cer的证书，从Apple Develper Portal直接下下来的证...&hellip; <a href="http://lejia.li/blog/2014/10/25/aps-cert/">Continue reading</a></p>
         </div><!-- /.read-more-content -->
       
 
       <div class="read-more-list">
         
           <div class="list-item">
-            <h4><a href="http://lejia.li/blog/2014/10/25/aps-cert/" title="关于苹果推送服务的证书">关于苹果推送服务的证书</a></h4>
-            <span>Published on October 25, 2014</span>
+            <h4><a href="http://lejia.li/blog/2014/07/22/Optional-of-Swift/" title="Optional of Swift">Optional of Swift</a></h4>
+            <span>Published on July 22, 2014</span>
           </div><!-- /.list-item -->
         
           <div class="list-item">
