@@ -4,13 +4,59 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lejia.li/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lejia.li" />
-<updated>2014-10-25T23:22:48+08:00</updated>
+<updated>2014-10-27T00:18:46+08:00</updated>
 <id>http://lejia.li/</id>
 <author>
   <name>Li Lejia</name>
   <uri>http://lejia.li/</uri>
   <email>leelejia@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[如何在不改变Xcode工程的情况下集成Reveal]]></title>
+ <link rel="alternate" type="text/html" href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/" />
+  <id>http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project</id>
+  <published>2014-10-26T00:00:00+08:00</published>
+  <updated>2014-10-26T00:00:00+08:00</updated>
+  <author>
+    <name>Li Lejia</name>
+    <uri>http://lejia.li</uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;读这篇文章的时候想必你早就非常喜欢用&lt;a href=&quot;http://www.revealapp.com&quot;&gt;Reveal&lt;/a&gt;了，但是当你新建了一个工程而又想快速使用Reveal Debug的时候，你如何快速集成Reveal呢？(或者你不想影响你的原工程不至于在提交的时候忘记移除)。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;LLDB 调试器将是你的解决方案&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;LLDB调试器能够执行你应用内的任意代码，所以你可以直接将Reveal加载到你现在的进程里。&lt;/p&gt;
+
+&lt;p&gt;暂停运行iOS，然后在LLDB调试器里输入：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;expr &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;void*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;dlopen&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib&amp;quot;&lt;/span&gt;, 0x2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+expr &lt;span class=&quot;o&quot;&gt;[(&lt;/span&gt;NSNotificationCenter*&lt;span class=&quot;o&quot;&gt;)[&lt;/span&gt;NSNotificationCenter defaultCenter&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; postNotificationName:@&lt;span class=&quot;s2&quot;&gt;&amp;quot;IBARevealRequestStart&amp;quot;&lt;/span&gt; object:nil&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;十分简单对吧？&lt;/p&gt;
+
+&lt;p&gt;我们还可以添加一些例如&lt;code&gt;reveal_load&lt;/code&gt;的简单命令来让调试更加简单，你只要新建一个文本文件输入：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;command alias &lt;/span&gt;reveal_load_sim expr &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;void*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;dlopen&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib&amp;quot;&lt;/span&gt;, 0x2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;command alias &lt;/span&gt;reveal_load_dev expr &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;void*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;dlopen&lt;span class=&quot;o&quot;&gt;([(&lt;/span&gt;NSString*&lt;span class=&quot;o&quot;&gt;)[(&lt;/span&gt;NSBundle*&lt;span class=&quot;o&quot;&gt;)[&lt;/span&gt;NSBundle mainBundle&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; pathForResource:@&lt;span class=&quot;s2&quot;&gt;&amp;quot;libReveal&amp;quot;&lt;/span&gt; ofType:@&lt;span class=&quot;s2&quot;&gt;&amp;quot;dylib&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; cStringUsingEncoding:0x4&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, 0x2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;command alias &lt;/span&gt;reveal_start expr &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;void&lt;span class=&quot;o&quot;&gt;)[(&lt;/span&gt;NSNotificationCenter*&lt;span class=&quot;o&quot;&gt;)[&lt;/span&gt;NSNotificationCenter defaultCenter&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; postNotificationName:@&lt;span class=&quot;s2&quot;&gt;&amp;quot;IBARevealRequestStart&amp;quot;&lt;/span&gt; object:nil&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;command alias &lt;/span&gt;reveal_stop expr &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;void&lt;span class=&quot;o&quot;&gt;)[(&lt;/span&gt;NSNotificationCenter*&lt;span class=&quot;o&quot;&gt;)[&lt;/span&gt;NSNotificationCenter defaultCenter&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; postNotificationName:@&lt;span class=&quot;s2&quot;&gt;&amp;quot;IBARevealRequestStop&amp;quot;&lt;/span&gt; object:nil&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;reveal_load_sim&lt;/code&gt; 是指的在模拟器加载Reveal，最好确保你Reveal的安装位置和上面的写得一样。&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;reveal_load_dev&lt;/code&gt; 是指的在真机调试或者模拟器下打开Reveal，不过如果实在真机，确保在&lt;code&gt;libReveal.dylib&lt;/code&gt;放在了&lt;em&gt;Copy Resources&lt;/em&gt;里，而非&lt;em&gt;Link Binary with Libraries&lt;/em&gt;。&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;reveal_start&lt;/code&gt; 发送调试开始的通知&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;reveal_stop&lt;/code&gt;	发送终止的通知&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;然后在LLDB Console里头像bash那样load文件 &lt;code&gt;~/.the_reveal_load_file&lt;/code&gt; 就好啦！&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/&quot;&gt;如何在不改变Xcode工程的情况下集成Reveal&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;http://lejia.li&quot;&gt;Li Lejia's blog&lt;/a&gt; on October 26, 2014.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>

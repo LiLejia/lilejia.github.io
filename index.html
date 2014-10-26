@@ -135,6 +135,51 @@
 <article class="hentry">
   <header>
     <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2014-10-26T00:00:00+08:00"><a href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/">October 26, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="http://lejia.li/blog/2014/10/26/integrating-reveal-without-modifying-your-xcode-project/" rel="bookmark" title="如何在不改变Xcode工程的情况下集成Reveal" itemprop="url">如何在不改变Xcode工程的情况下集成Reveal</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <p>读这篇文章的时候想必你早就非常喜欢用<a href="http://www.revealapp.com">Reveal</a>了，但是当你新建了一个工程而又想快速使用Reveal Debug的时候，你如何快速集成Reveal呢？(或者你不想影响你的原工程不至于在提交的时候忘记移除)。</p>
+
+<p><em>LLDB 调试器将是你的解决方案</em></p>
+
+<p>LLDB调试器能够执行你应用内的任意代码，所以你可以直接将Reveal加载到你现在的进程里。</p>
+
+<p>暂停运行iOS，然后在LLDB调试器里输入：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">expr <span class="o">(</span>void*<span class="o">)</span>dlopen<span class="o">(</span><span class="s2">&quot;/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib&quot;</span>, 0x2<span class="o">)</span><span class="p">;</span>
+expr <span class="o">[(</span>NSNotificationCenter*<span class="o">)[</span>NSNotificationCenter defaultCenter<span class="o">]</span> postNotificationName:@<span class="s2">&quot;IBARevealRequestStart&quot;</span> object:nil<span class="o">]</span><span class="p">;</span>
+<span class="k">continue</span></code></pre></div>
+
+<p>十分简单对吧？</p>
+
+<p>我们还可以添加一些例如<code>reveal_load</code>的简单命令来让调试更加简单，你只要新建一个文本文件输入：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">command alias </span>reveal_load_sim expr <span class="o">(</span>void*<span class="o">)</span>dlopen<span class="o">(</span><span class="s2">&quot;/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib&quot;</span>, 0x2<span class="o">)</span><span class="p">;</span>
+<span class="nb">command alias </span>reveal_load_dev expr <span class="o">(</span>void*<span class="o">)</span>dlopen<span class="o">([(</span>NSString*<span class="o">)[(</span>NSBundle*<span class="o">)[</span>NSBundle mainBundle<span class="o">]</span> pathForResource:@<span class="s2">&quot;libReveal&quot;</span> ofType:@<span class="s2">&quot;dylib&quot;</span><span class="o">]</span> cStringUsingEncoding:0x4<span class="o">]</span>, 0x2<span class="o">)</span><span class="p">;</span>
+<span class="nb">command alias </span>reveal_start expr <span class="o">(</span>void<span class="o">)[(</span>NSNotificationCenter*<span class="o">)[</span>NSNotificationCenter defaultCenter<span class="o">]</span> postNotificationName:@<span class="s2">&quot;IBARevealRequestStart&quot;</span> object:nil<span class="o">]</span><span class="p">;</span>
+<span class="nb">command alias </span>reveal_stop expr <span class="o">(</span>void<span class="o">)[(</span>NSNotificationCenter*<span class="o">)[</span>NSNotificationCenter defaultCenter<span class="o">]</span> postNotificationName:@<span class="s2">&quot;IBARevealRequestStop&quot;</span> object:nil<span class="o">]</span><span class="p">;</span></code></pre></div>
+
+<ul>
+  <li><code>reveal_load_sim</code> 是指的在模拟器加载Reveal，最好确保你Reveal的安装位置和上面的写得一样。</li>
+  <li><code>reveal_load_dev</code> 是指的在真机调试或者模拟器下打开Reveal，不过如果实在真机，确保在<code>libReveal.dylib</code>放在了<em>Copy Resources</em>里，而非<em>Link Binary with Libraries</em>。</li>
+  <li><code>reveal_start</code> 发送调试开始的通知</li>
+  <li><code>reveal_stop</code>	发送终止的通知</li>
+</ul>
+
+<p>然后在LLDB Console里头像bash那样load文件 <code>~/.the_reveal_load_file</code> 就好啦！</p>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    <div class="entry-meta">
       <span class="entry-date date published updated"><time datetime="2014-10-25T11:13:00+08:00"><a href="http://lejia.li/blog/2014/10/25/aps-cert/">October 25, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
       
     </div><!-- /.entry-meta -->
@@ -437,80 +482,6 @@ title: Blogging Like a Hacker
 <p><code>[NSFileManager defautManager]</code>不是线程安全的，但是<code>[[NSFileManager alloc] init]</code>是线程安全的，为了安全起见，不如全部用后者。</p>
 
 <p>PS：这和<code>NSManagedObjectContext</code>其实是差不多的。</p>
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2014-06-21T23:52:00+08:00"><a href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/">June 21, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/" rel="bookmark" title="Objective-C里@public、@protected和@private更深一点点的区别" itemprop="url">Objective-C里@public、@protected和@private更深一点点的区别</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <p>感觉其实很多语法书里也不会讲得那么详尽，或者大家自然而然的以为这三个属性和C++里的无甚区别，其实不然。</p>
-
-<p>首先，一致的是，对于拥有这些属性变量的类<code>TestClass</code>：</p>
-
-<p><code>@public</code> 表示任何其他类可以访问这个变量。</p>
-
-<p><code>@protected</code> 表示只有子类可以访问这个变量。</p>
-
-<p><code>@private</code> 表示任何其他类不能访问这个变量。</p>
-
-<p>如果不标注，默认所有变量都是<code>@protected</code>。</p>
-
-<p>如果你对C++也不怎么熟悉（比如我），初看，你会觉得<code>@public</code>和<code>@protected</code>没有什么区别，因为一般在ObjC里，如果须要设置外部类要访问的变量，我们习惯把变量直接用@property和@synthesize直接生成get和set方法，但是其实ObjC还可以用指针-&gt;访问这些变量，这些语法可能延续自Smalltalk的习惯（待查证，不过注意Smalltalk可比C++老十几年，这是乔布斯从<a href="http://zh.wikipedia.org/wiki/Xerox_PARC">Xerox PARC</a>偷来的两样东西之一，另一个东西是图形界面）。</p>
-
-<p>例如以下代码，你可以尝试写入Xcode，不用编译，你就能意识到区别。</p>
-
-<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">@interface</span> <span class="nc">TestClass</span> : <span class="bp">NSObject</span><span class="p">{</span>
-    <span class="k">@protected</span>
-    <span class="kt">int</span> <span class="n">protectedNumber</span><span class="p">;</span>
-    <span class="k">@private</span>
-    <span class="kt">int</span> <span class="n">privateNumber</span><span class="p">;</span>
-    <span class="k">@public</span>
-    <span class="kt">int</span> <span class="n">publicNumber</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">TestClass</span>
-<span class="k">@end</span>
-
-<span class="k">@interface</span> <span class="nc">TestChildClass</span> : <span class="nc">TestClass</span>
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">TestChildClass</span>
-
-<span class="p">-</span> <span class="p">(</span><span class="kt">instancetype</span><span class="p">)</span><span class="nf">init</span><span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">self</span> <span class="o">=</span> <span class="p">[</span><span class="nb">super</span> <span class="n">init</span><span class="p">]){</span>
-        <span class="nb">self</span><span class="o">-&gt;</span><span class="n">protectedNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">@end</span>
-
-<span class="k">@interface</span> <span class="nc">OtherClass</span> : <span class="bp">NSObject</span>
-
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">OtherClass</span>
-
-<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">testMethod</span><span class="p">{</span>
-
-    <span class="n">TestChildClass</span> <span class="o">*</span><span class="n">testInstance</span> <span class="o">=</span> <span class="p">[</span><span class="n">TestChildClass</span> <span class="n">new</span><span class="p">];</span>
-    <span class="n">testInstance</span><span class="o">-&gt;</span><span class="n">publicNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;test number value is:%d&quot;</span><span class="p">,</span><span class="n">testInstance</span><span class="o">-&gt;</span><span class="n">publicNumber</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">@end</span></code></pre></div>
-
-<p>另外，如果你熟悉ObjC的runtime编程，访问过isa的struct，你应该早就明白了。</p>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
