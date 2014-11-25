@@ -135,80 +135,6 @@
 <article class="hentry">
   <header>
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2014-06-21T23:52:00+08:00"><a href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/">June 21, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/" rel="bookmark" title="Objective-C里@public、@protected和@private更深一点点的区别" itemprop="url">Objective-C里@public、@protected和@private更深一点点的区别</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <p>感觉其实很多语法书里也不会讲得那么详尽，或者大家自然而然的以为这三个属性和C++里的无甚区别，其实不然。</p>
-
-<p>首先，一致的是，对于拥有这些属性变量的类<code>TestClass</code>：</p>
-
-<p><code>@public</code> 表示任何其他类可以访问这个变量。</p>
-
-<p><code>@protected</code> 表示只有子类可以访问这个变量。</p>
-
-<p><code>@private</code> 表示任何其他类不能访问这个变量。</p>
-
-<p>如果不标注，默认所有变量都是<code>@protected</code>。</p>
-
-<p>如果你对C++也不怎么熟悉（比如我），初看，你会觉得<code>@public</code>和<code>@protected</code>没有什么区别，因为一般在ObjC里，如果须要设置外部类要访问的变量，我们习惯把变量直接用@property和@synthesize直接生成get和set方法，但是其实ObjC还可以用指针-&gt;访问这些变量，这些语法可能延续自Smalltalk的习惯（待查证，不过注意Smalltalk可比C++老十几年，这是乔布斯从<a href="http://zh.wikipedia.org/wiki/Xerox_PARC">Xerox PARC</a>偷来的两样东西之一，另一个东西是图形界面）。</p>
-
-<p>例如以下代码，你可以尝试写入Xcode，不用编译，你就能意识到区别。</p>
-
-<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">@interface</span> <span class="nc">TestClass</span> : <span class="bp">NSObject</span><span class="p">{</span>
-    <span class="k">@protected</span>
-    <span class="kt">int</span> <span class="n">protectedNumber</span><span class="p">;</span>
-    <span class="k">@private</span>
-    <span class="kt">int</span> <span class="n">privateNumber</span><span class="p">;</span>
-    <span class="k">@public</span>
-    <span class="kt">int</span> <span class="n">publicNumber</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">TestClass</span>
-<span class="k">@end</span>
-
-<span class="k">@interface</span> <span class="nc">TestChildClass</span> : <span class="nc">TestClass</span>
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">TestChildClass</span>
-
-<span class="p">-</span> <span class="p">(</span><span class="kt">instancetype</span><span class="p">)</span><span class="nf">init</span><span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">self</span> <span class="o">=</span> <span class="p">[</span><span class="nb">super</span> <span class="n">init</span><span class="p">]){</span>
-        <span class="nb">self</span><span class="o">-&gt;</span><span class="n">protectedNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">@end</span>
-
-<span class="k">@interface</span> <span class="nc">OtherClass</span> : <span class="bp">NSObject</span>
-
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">OtherClass</span>
-
-<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">testMethod</span><span class="p">{</span>
-
-    <span class="n">TestChildClass</span> <span class="o">*</span><span class="n">testInstance</span> <span class="o">=</span> <span class="p">[</span><span class="n">TestChildClass</span> <span class="n">new</span><span class="p">];</span>
-    <span class="n">testInstance</span><span class="o">-&gt;</span><span class="n">publicNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;test number value is:%d&quot;</span><span class="p">,</span><span class="n">testInstance</span><span class="o">-&gt;</span><span class="n">publicNumber</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">@end</span></code></pre></div>
-
-<p>另外，如果你熟悉ObjC的runtime编程，访问过isa的struct，你应该早就明白了。</p>
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    <div class="entry-meta">
       <span class="entry-date date published updated"><time datetime="2014-06-07T06:57:00+08:00"><a href="http://lejia.li/blog/2014/06/07/from-api-to-apple-empire/">June 07, 2014</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
       
     </div><!-- /.entry-meta -->
@@ -418,6 +344,47 @@
 <hr />
 
 <p>这篇文章的idea其实是来自于王小波的<a href="http://book.douban.com/subject/1418686/">《红拂夜奔》</a>里关于开平方机的制造，按照牛顿法分析，一个机械的开平方机似乎完全是可行的。</p>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2012-07-23T15:07:00+08:00"><a href="http://lejia.li/blog/2012/07/23/how-to-learn/">July 23, 2012</a></time></span><span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="http://lejia.li/blog/2012/07/23/how-to-learn/" rel="bookmark" title="怎样学习一项知识" itemprop="url">怎样学习一项知识</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h3 id="section">学习一项知识，必须问自己的三个重要问题：</h3>
+
+<pre><code>1、它的本质是什么
+
+2、它的第一原则是什么
+
+3、它的知识结构是怎样的
+</code></pre>
+
+<h3 id="section-1">学习和思考过程中经常问自己的几个问题：</h3>
+
+<pre><code>1、你的问题到底是什么（提醒自己不要偏离问题）
+
+2、到现在为止，我有了什么收获呢？（整理去学的东西）
+
+3、设想自己正在将东西讲给别人听（能否讲出来是判断正确理解的最好办法）
+
+4、设想需要讲个一个不懂的人听（迫使自己挖掘只是背后最本质、也是最简单的事情）
+
+5、时常反省和注意自己的思维过程。尤其是遇到自己无法理解或者不能解决的问题的时候。重新理解问题，看看问题到底出现在了哪个环节。
+
+6、养成反驳自己的习惯。难道这个一定成立么？
+
+7、人的思维天生就是极易刘御表面来理解事物的。问自己：真的理解了么？？？
+</code></pre>
+
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->

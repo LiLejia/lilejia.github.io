@@ -1,0 +1,290 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>牛顿法的计算方法与实现 &#8211; Li Lejia's blog</title>
+<meta name="description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
+<meta name="keywords" content="">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lejia.li/images/">
+<meta name="twitter:title" content="牛顿法的计算方法与实现">
+<meta name="twitter:description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
+<meta name="twitter:creator" content="@twitter.com/lilejia">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛顿法的计算方法与实现">
+<meta property="og:description" content="This is some share from Li Lejia(李乐佳), hope it would help a little bit.">
+<meta property="og:url" content="http://lejia.li/blog/2012/12/07/newtown-method/">
+<meta property="og:site_name" content="Li Lejia's blog">
+
+
+
+
+
+<link rel="canonical" href="http://lejia.li/blog/2012/12/07/newtown-method/">
+<link href="http://lejia.li/feed.xml" type="application/atom+xml" rel="alternate" title="Li Lejia's blog Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://lejia.li/assets/css/main.min.css">
+<!-- Webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="http://lejia.li/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://lejia.li/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lejia.li/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lejia.li/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lejia.li/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lejia.li/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lejia.li/images/apple-touch-icon-144x144-precomposed.png">
+
+
+
+</head>
+
+<body id="post" >
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="http://lejia.li">Home</a></li>
+		<li>
+			<a href="#">About</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="http://lejia.li/images/avatar.jpg" alt="Li Lejia photo" class="author-photo">
+					<h4>Li Lejia</h4>
+					<p>iOS & OS X Developer</p>
+				</li>
+				<li><a href="http://lejia.li/about/">Learn More</a></li>
+				<li>
+					<a href="mailto:leelejia@gmail.com"><i class="fa fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="http://twitter.com/twitter.com/lilejia"><i class="fa fa-twitter"></i> Twitter</a>
+				</li>
+				
+				
+				
+				<li>
+					<a href="http://github.com/github.com/lilejia"><i class="fa fa-github"></i> GitHub</a>
+				</li>
+				
+				
+				
+				
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">Posts</a>
+			<ul class="dl-submenu">
+				<li><a href="http://lejia.li/posts/">All Posts</a></li>
+				<li><a href="http://lejia.li/tags/">All Tags</a></li>
+			</ul>
+		</li>
+		
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
+
+
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    <header class="header-title">
+      <div class="header-title-wrap">
+        
+          <h1 class="entry-title"><a href="http://lejia.li/blog/2012/12/07/newtown-method/" rel="bookmark" title="牛顿法的计算方法与实现">牛顿法的计算方法与实现</a></h1>
+        
+        <h2>December 07, 2012</h2>
+        
+      </div><!-- /.header-title-wrap -->
+    </header>
+    <div class="entry-content">
+      <p><a href="http://zh.wikipedia.org/wiki/%E7%89%9B%E9%A1%BF%E6%B3%95">牛顿法</a>，是牛顿在十七世纪提出的在实数域与复数域上求近似方程解的方法。方法使用函数f(x）的泰勒级数的前面几项来寻找方程f(x) = 0的根。牛顿迭代法是求方程根的重要方法之一，其最大优点是在方程f(x) = 0的单根附近具有平方收敛，而且该法还可以用来求方程的重根、复根，此时线性收敛，但是可通过一些方法变成超线性收敛。（其实是最简单的高数了）。</p>
+
+<h4 id="section">计算：</h4>
+<pre><code>y=f(x)的近似根，也就是f(x)=0
+</code></pre>
+
+<p><img src="http://m1.img.srcdd.com/farm4/2012/1207/16/AE67855D6EA2A968A4AC4C17EBA4B0BA85F79B253F274_300_214.GIF" alt="Newtown" /></p>
+
+<h4 id="section-1">解：</h4>
+
+<pre><code>1.	任取x=0附近一点x0，在曲线上的点为(x0, f(x0))
+2.	x0点上的切线斜率为其倒数f'(x0)，所以求得它的切线为 y=f'(x0)x+f(x0)-f'(x0)*x0
+3.	切线与x轴的交点为 x1=(f'(x0)*x0-f(x0))/f'(x0)
+
+
+所以，得到的关系为 Xn+1 = (f'(Xn)*Xn-f(Xn))/f'(Xn) = Xn - f(Xn)/f'(Xn)  (可以证明，这个级数在什么条件下收敛)
+
+所以，我们就可以利用这个关系算出一定精度下的X的解了。（BTW: Xn+1 = Xn - f(Xn)/f'(Xn)  ==&gt; f'(Xn) =  f(Xn)/(Xn-Xn+1) ）
+</code></pre>
+
+<h4 id="section-2">例 1：</h4>
+<pre><code>计算value的平方根
+</code></pre>
+
+<h4 id="section-3">解：</h4>
+<pre><code>	假设其平方根sqrt = (value)^0.5，则问题等价于求 f(sqrt) = sqrt^2 - value  在 f(sqrt) = 0时的解。
+
+   写为比较数学化的表达式即为 f(x) = x^2 - C   C为要开方的值
+
+           f'(x) = 2x
+
+ 所以此例中，根据之前推出的对应关系：Xn+1 = (f'(Xn)*Xn-f(Xn))/f'(Xn) = Xn - f(Xn)/f'(Xn)，牛顿法的对应关系为 Xn+1  = Xn - (Xn^2 - C)/2Xn = Xn/2 + C/2Xn。
+
+ 所以，至此，既可以用这个对应关系，迭代计算，java代码如下：
+</code></pre>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">sqrt</span><span class="o">(</span><span class="kt">double</span> <span class="n">xn0</span><span class="o">){</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">xn0</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">Double</span><span class="o">.</span><span class="na">NaN</span><span class="o">;</span>
+
+        <span class="kt">double</span> <span class="n">min</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">15</span><span class="o">;</span>
+
+        <span class="kt">double</span> <span class="n">result</span> <span class="o">=</span> <span class="n">xn0</span><span class="o">;</span>
+
+        <span class="k">while</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">result</span><span class="o">-</span><span class="n">xn0</span><span class="o">/</span><span class="n">result</span><span class="o">)&gt;</span><span class="n">min</span><span class="o">*</span><span class="n">result</span><span class="o">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="n">xn0</span><span class="o">/</span><span class="n">result</span><span class="o">+</span><span class="n">result</span><span class="o">)/</span><span class="mf">2.0</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+
+    <span class="o">}</span></code></pre></div>
+
+<h4 id="section-4">练习 1：</h4>
+<pre><code>计算Value的任意次整数根 double root(int time, double xn0) （建议大家自己推一下，自己推完编码完就不会忘了）
+</code></pre>
+
+<h4 id="section-5">解：</h4>
+<pre><code>对应关系也为 Xn+1 = (f'(Xn)*Xn-f(Xn))/f'(Xn) = Xn - f(Xn)/f'(Xn) 
+
+ 而n次方根，即为求 f(x) = x^n - C 在f(x) = 0的解。
+
+相应的对应关系为 Xn+1 = 1/n((n-1)Xn + C/Xn^(n-1)) 
+
+把n = 2带入，能得到与之前相同的结果  Xn+1 = 1/2(Xn+C/Xn)
+
+所以n次方的代码类似的为：
+</code></pre>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">power</span><span class="o">(</span><span class="kt">int</span> <span class="n">time</span><span class="o">,</span> <span class="kt">double</span> <span class="n">value</span><span class="o">){</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">time</span><span class="o">==</span><span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">result</span><span class="o">=</span><span class="n">value</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">time</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span><span class="n">i</span><span class="o">++)</span>
+            <span class="n">result</span><span class="o">=</span><span class="n">result</span><span class="o">*</span><span class="n">value</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">root</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span><span class="kt">double</span> <span class="n">xn0</span><span class="o">){</span>
+
+        <span class="k">if</span><span class="o">((</span><span class="n">n</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">xn0</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">)||</span><span class="n">n</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">Double</span><span class="o">.</span><span class="na">NaN</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+
+        <span class="kt">double</span> <span class="n">verysmall</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">15</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">xn1</span> <span class="o">=</span> <span class="n">xn0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">old</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+            <span class="n">old</span> <span class="o">=</span> <span class="n">xn1</span><span class="o">;</span>
+            <span class="n">xn1</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">n</span><span class="o">*((</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)*</span><span class="n">xn1</span><span class="o">+</span><span class="n">xn0</span><span class="o">/</span><span class="n">power</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="n">xn1</span><span class="o">));</span>
+            <span class="n">count</span><span class="o">++;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">xn1</span><span class="o">-</span><span class="n">old</span><span class="o">)&lt;</span><span class="n">verysmall</span><span class="o">)</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">xn1</span><span class="o">;</span>
+    <span class="o">}</span></code></pre></div>
+
+<p>代码没仔细测，不知道会有什么不足的地方，请多指教。</p>
+
+<h4 id="section-6">练习 2：</h4>
+<pre><code>任意X元X次方程的求解
+</code></pre>
+
+<hr />
+
+<p>这篇文章的idea其实是来自于王小波的<a href="http://book.douban.com/subject/1418686/">《红拂夜奔》</a>里关于开平方机的制造，按照牛顿法分析，一个机械的开平方机似乎完全是可行的。</p>
+
+      <footer class="entry-meta">
+        <span class="entry-tags"></span>
+        <span><a href="http://lejia.li/blog/2012/12/07/newtown-method/" rel="bookmark" title="牛顿法的计算方法与实现">牛顿法的计算方法与实现</a> was published on <span class="entry-date date published updated"><time datetime="2012-12-07T16:58:00+08:00">December 07, 2012</time></span></span>
+        
+        <span class="author vcard"><span class="fn"><a href="http://lejia.li/about/" title="About Li Lejia">Li Lejia</a></span></span>
+        
+      </footer>
+    </div><!-- /.entry-content -->
+    
+    
+    <div class="read-more">
+      
+        <div class="read-more-header">
+          <a href="http://lejia.li/blog/2012/07/23/how-to-learn/" class="read-more-btn">Read More</a>
+        </div><!-- /.read-more-header -->
+        <div class="read-more-content">
+          <h3><a href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/" title="用Jekyll与Github.io来搭建个人博客">用Jekyll与Github.io来搭建个人博客</a></h3>
+          <p>##用Jekyll与Github.io来搭建个人博客下班完折腾折腾，九点钟边看着一百七十多分钟的《音乐之声》边开始了博客的迁移，现在真的没有比Jekyl+github.io更方便的了吧，Wordpress从来没有觉得顺畅过，当然，最关键的是github.io不需要和Linu...&hellip; <a href="http://lejia.li/blog/2014/07/04/Jekyll-and-github/">Continue reading</a></p>
+        </div><!-- /.read-more-content -->
+      
+      <div class="read-more-list">
+        
+          <div class="list-item">
+            <h4><a href="http://lejia.li/experiences/blog/2014/06/22/nsfilemanager-thread/" title="NSFilemanager的线程安全性">NSFilemanager的线程安全性</a></h4>
+            <span>Published on June 22, 2014</span>
+          </div><!-- /.list-item -->
+        
+          <div class="list-item">
+            <h4><a href="http://lejia.li/experiences/blog/2014/06/21/Objc-public-protected-private/" title="Objective-C里@public、@protected和@private更深一点点的区别">Objective-C里@public、@protected和@private更深一点点的区别</a></h4>
+            <span>Published on June 21, 2014</span>
+          </div><!-- /.list-item -->
+        
+      </div><!-- /.read-more-list -->
+      
+    </div><!-- /.read-more -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 Li Lejia. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/">HPSTR Theme</a>.</span>
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://lejia.li/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://lejia.li/assets/js/scripts.min.js"></script>
+
+	        
+
+</body>
+</html>
