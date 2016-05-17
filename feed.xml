@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2016-05-18T03:11:27+08:00</updated>
+<updated>2016-05-18T03:15:19+08:00</updated>
 <id>/</id>
 <author>
   <name>Li Lejia</name>
@@ -14,29 +14,7 @@
 
 
 <entry>
-  <title type="html"><![CDATA[no title]]></title>
- <link rel="alternate" type="text/html" href="/no-title/" />
-  <id>/no-title</id>
-  <updated>2016-05-18T00:00:00-00:00</updated>
-  <published>2016-05-18T00:00:00+08:00</published>
-  
-  <author>
-    <name>Li Lejia</name>
-    <uri></uri>
-    <email>leelejia@gmail.com</email>
-  </author>
-  <content type="html">
-    &lt;p&gt;You succeed once or so with experiences. These experiences become your success formula of your life. You may success again using this formula and you may also fail painfully because this formula.&lt;/p&gt;
-
-&lt;p&gt;That’s why Qing dynasty fail. That’s why Mao failed 50 years ago. That’s why you will fail.&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;/no-title/&quot;&gt;no title&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;&quot;&gt;Li Lejia's Blog&lt;/a&gt; on May 18, 2016.&lt;/p&gt;
-  </content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Recent introspection]]></title>
+  <title type="html"><![CDATA[Recent Introspection]]></title>
  <link rel="alternate" type="text/html" href="/introspection/" />
   <id>/introspection</id>
   <updated>2016-05-10T00:00:00-00:00</updated>
@@ -65,7 +43,29 @@
   &lt;li&gt;Choose a good leader. A experienced leader is a mentor and advisor. Or it will really really suck, trust me.&lt;/li&gt;
 &lt;/ul&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/introspection/&quot;&gt;Recent introspection&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;&quot;&gt;Li Lejia's Blog&lt;/a&gt; on May 18, 2016.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/introspection/&quot;&gt;Recent Introspection&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;&quot;&gt;Li Lejia's Blog&lt;/a&gt; on May 18, 2016.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[No Title]]></title>
+ <link rel="alternate" type="text/html" href="/No-Title/" />
+  <id>/No-Title</id>
+  <updated>2016-05-18T00:00:00-00:00</updated>
+  <published>2016-05-18T00:00:00+08:00</published>
+  
+  <author>
+    <name>Li Lejia</name>
+    <uri></uri>
+    <email>leelejia@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;You succeed once or so with experiences. These experiences become your success formula of your life. You may success again using this formula and you may also fail painfully because this formula.&lt;/p&gt;
+
+&lt;p&gt;That’s why Qing dynasty fail. That’s why Mao failed 50 years ago. That’s why you will fail.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/No-Title/&quot;&gt;No Title&lt;/a&gt; was originally published by Li Lejia at &lt;a href=&quot;&quot;&gt;Li Lejia's Blog&lt;/a&gt; on May 18, 2016.&lt;/p&gt;
   </content>
 </entry>
 
